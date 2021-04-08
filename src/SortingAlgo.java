@@ -14,7 +14,7 @@ public class SortingAlgo {
             JFrame frame = new JFrame();
             frame.setSize(Constants.WIDTH, Constants.HEIGHT);
         	frame.setTitle("SortingAlgo");
-        	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         	frame.getContentPane().add(gui);    
         	frame.setVisible(true);
         } catch (Exception e) {
