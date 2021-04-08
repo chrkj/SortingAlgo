@@ -1,5 +1,4 @@
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 
 import GUI.SortingGUI;
 import Resourses.Constants;
@@ -12,7 +11,7 @@ public class SortingAlgo {
 
             // Setting up the frame to contain the GUI:
             JFrame frame = new JFrame();
-            frame.setSize(Constants.WIDTH, Constants.HEIGHT);
+            frame.setSize(Constants.INITIAL_WIDTH, Constants.INITIAL_HEIGHT);
         	frame.setTitle("SortingAlgo");
         	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         	frame.getContentPane().add(gui);    

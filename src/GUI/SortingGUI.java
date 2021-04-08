@@ -1,38 +1,43 @@
 package GUI;
 
+import java.awt.*;
 import java.awt.event.*;
-import java.awt.Graphics;
+
 import Resourses.Constants;
-import javax.swing.JComponent;
+
+import javax.swing.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class SortingGUI extends JComponent implements MouseListener {
+public class SortingGUI extends JComponent implements MouseListener, KeyListener {
 
-    private int spacing = 4;
-    private int rectAmount = 25;
-    private int borderMargin = 50;
-    private int graphLength = Constants.WIDTH - 2 * borderMargin - (rectAmount - 1) * spacing;
-    private int barLength = graphLength / rectAmount;
     private int[] data;
-    private int minBarHeight = 5;
-    private int maxBarHeight = 500;
+    private JTextField typingArea;
 
     private static final long serialVersionUID = -5097077992437305425L;
 
     public SortingGUI() {
-        data = new int[rectAmount];
+        // Setup the GUI
+        data = new int[Constants.rectAmount];
         for (int i = 0; i < data.length; i++) {
-            int randomNum = ThreadLocalRandom.current().nextInt(minBarHeight, maxBarHeight + 1);
+            int randomNum = ThreadLocalRandom.current().nextInt(Constants.minBarHeight, Constants.maxBarHeight + 1);
             data[i] = randomNum;
         }
+
+        // Add listeners
         addMouseListener(this);
+
+        typingArea = new JTextField(0);
+        typingArea.addKeyListener(this);
+        add(typingArea, BorderLayout.PAGE_START);
+
+        this.addComponentListener(new ResizeListener());
     }
 
     @Override
     public void paint(Graphics g) {
-        for (int i = 0; i < rectAmount; i++) {
-            g.fillRect(borderMargin + i * spacing + i * barLength, Constants.HEIGHT - borderMargin * 2, barLength, -data[i]);
-            g.drawString(Integer.toString(data[i]), borderMargin + i * spacing + i * barLength + barLength / 4, Constants.HEIGHT - 85);
+        for (int i = 0; i < Constants.rectAmount; i++) {
+            g.fillRect(Constants.borderMargin + i * Constants.spacing + i * Constants.barLength, Constants.INITIAL_HEIGHT - Constants.borderMargin * 2, Constants.barLength, -data[i]);
+            g.drawString(Integer.toString(data[i]), Constants.borderMargin + i * Constants.spacing + i * Constants.barLength + Constants.barLength / 4, Constants.INITIAL_HEIGHT - 85);
         }
     }
 
@@ -41,7 +46,7 @@ public class SortingGUI extends JComponent implements MouseListener {
         // TODO: Make the specific algorithm make a "sorting step" each click
         System.out.println(e.getX() + " " + e.getY());
         for (int i = 0; i < data.length; i++) {
-            int randomNum = ThreadLocalRandom.current().nextInt(minBarHeight, maxBarHeight + 1);
+            int randomNum = ThreadLocalRandom.current().nextInt(Constants.minBarHeight, Constants.maxBarHeight + 1);
             data[i] = randomNum;
         }
         this.repaint();
@@ -63,5 +68,16 @@ public class SortingGUI extends JComponent implements MouseListener {
     public void mouseExited(MouseEvent e) { // Not in use 
     }
 
-    
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println(e.getKeyChar());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) { // Not in use
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) { // Not in use
+    }
 }
