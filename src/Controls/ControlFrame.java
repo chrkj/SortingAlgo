@@ -1,4 +1,6 @@
-import Resourses.Constants;
+package Controls;
+
+import Resourses.Settings;
 import Resourses.JBarComponent;
 import Resourses.JSpacerComponent;
 
@@ -9,37 +11,39 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ControlFrame extends JFrame implements MouseListener, KeyListener {
 
-    private JPanel GUI;
-    private int rectCount = 5;
-    private ArrayList<JBarComponent> dataBars;
+    private final JPanel dataGUI;
+    private final ArrayList<JBarComponent> dataBars;
 
     public ControlFrame(String title) {
         super(title);
         // Get content pane -- contents of the window
-        dataBars = new ArrayList<>(rectCount);
+        dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
 
-        GUI = createContentPane();
-        this.add(GUI);
+        dataGUI = initDataGUI();
+        // controls = initControls();
+        this.add(dataGUI);
+        // this.add(controls);
 
-        pack(); // Causes this Window to be sized to fit the preferred size and layouts of its subcomponents
+        // pack(); // Causes this Window to be sized to fit the preferred size and layouts of its subcomponents
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets the operation that will happen by default when the user initiates a "close" on this frame.
         setVisible(true); // make it show up on screen
 
         // Adding Listeners
-        addKeyListener(this); // can be added to specific components
+        addKeyListener(this);
         addMouseListener(this);
     }
 
     // Create the initial BarComponents
-    public JPanel createContentPane() {
+    public JPanel initDataGUI() {
         JPanel totalGUI = new JPanel();
         totalGUI.setLayout(new BoxLayout(totalGUI, BoxLayout.LINE_AXIS));
-        for (int i = 0; i < rectCount; i++) {
-            int randomNum = ThreadLocalRandom.current().nextInt(Constants.minBarHeight, Constants.maxBarHeight + 1);
+        for (int i = 0; i < Settings.INITIAL_RECT_COUNT; i++) {
+            int randomNum = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
             dataBars.add(new JBarComponent(randomNum));
         }
 
@@ -56,11 +60,11 @@ public class ControlFrame extends JFrame implements MouseListener, KeyListener {
 
     // Redraw the GUI based on the date from dataBars
     public void reDraw() {
-        GUI.removeAll();
-        GUI.add(new JSpacerComponent());
+        dataGUI.removeAll();
+        dataGUI.add(new JSpacerComponent());
         for (JBarComponent bar : dataBars ) {
-            GUI.add(bar);
-            GUI.add(new JSpacerComponent());
+            dataGUI.add(bar);
+            dataGUI.add(new JSpacerComponent());
         }
         validate();
         repaint();
@@ -72,32 +76,30 @@ public class ControlFrame extends JFrame implements MouseListener, KeyListener {
         if (e.getKeyChar() == '+') {
             for (JBarComponent bar : dataBars) {
                 bar.setHeight(bar.getHeight() + 5);
-                reDraw();
             }
         } else if (e.getKeyChar() == '-') {
             for (JBarComponent bar : dataBars) {
                 bar.setHeight(bar.getHeight() - 5);
-                reDraw();
             }
         } else if (e.getKeyChar() == '1') {
             for (JBarComponent bar : dataBars) {
-                bar.setHeight(ThreadLocalRandom.current().nextInt(Constants.minBarHeight, Constants.maxBarHeight + 1));
-                reDraw();
+                bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1));
             }
         } else if (e.getKeyChar() == '2') {
             for (JBarComponent bar : dataBars) {
                 bar.setColor(Color.RED);
-                reDraw();
             }
         } else if (e.getKeyChar() == '3') {
             for (JBarComponent bar : dataBars) {
                 bar.setColor(Color.BLACK);
-                reDraw();
             }
         } else if (e.getKeyChar() == '4') {
-            int height = ThreadLocalRandom.current().nextInt(Constants.minBarHeight, Constants.maxBarHeight + 1);
-            JBarComponent tmp = new JBarComponent(height);
-            dataBars.add(tmp);
+            int randomHeight = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
+            JBarComponent tmpBar = new JBarComponent(randomHeight);
+            dataBars.add(tmpBar);
+            reDraw();
+        } else if (e.getKeyChar() == '5') {
+            Collections.sort(dataBars);
             reDraw();
         }
     }
@@ -137,11 +139,15 @@ public class ControlFrame extends JFrame implements MouseListener, KeyListener {
 
     }
 
+    public ArrayList<JBarComponent> getDataBars() {
+        return this.dataBars;
+    }
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) { }
-        new ControlFrame("Control Frame").setSize(600, 800); // Temp size
+        new ControlFrame("Control Frame").setSize(Settings.INITIAL_WIDTH, Settings.INITIAL_HEIGHT);
     }
 
 }
