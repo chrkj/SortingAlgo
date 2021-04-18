@@ -5,18 +5,17 @@ import Resourses.JBarComponent;
 import Resourses.JSpacerComponent;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ControlFrame extends JFrame implements MouseListener, KeyListener {
 
     private final JPanel dataGUI;
+
     private final ArrayList<JBarComponent> dataBars;
 
     public ControlFrame(String title) {
@@ -25,9 +24,9 @@ public class ControlFrame extends JFrame implements MouseListener, KeyListener {
         dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
 
         dataGUI = initDataGUI();
-        // controls = initControls();
+        JPanel settingsGUI = initSettingsGUI();
+        this.add(settingsGUI);
         this.add(dataGUI);
-        // this.add(controls);
 
         // pack(); // Causes this Window to be sized to fit the preferred size and layouts of its subcomponents
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Sets the operation that will happen by default when the user initiates a "close" on this frame.
@@ -38,24 +37,61 @@ public class ControlFrame extends JFrame implements MouseListener, KeyListener {
         addMouseListener(this);
     }
 
+    // Init settings panel
+    private JPanel initSettingsGUI() {
+        JPanel gui = new JPanel();
+        gui.setBackground(Color.LIGHT_GRAY);
+        gui.setBounds(5, 5, 400, 100);
+
+        ////
+        // Initializing settings components
+        ////
+        Button runButton = new Button();
+        runButton.setLabel("Run");
+        runButton.addActionListener(e -> System.out.println("RunBtn pressed!"));
+
+        JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MIN, Settings.SPEED_MAX, Settings.SPEED_INIT);
+        runSpeedSlider.setBackground(Color.LIGHT_GRAY);
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
+        labelTable.put(Settings.SPEED_MIN, new JLabel("Slow") );
+        labelTable.put(Settings.SPEED_MAX, new JLabel("Fast") );
+        runSpeedSlider.setLabelTable(labelTable);
+        runSpeedSlider.setPaintLabels(true);
+        runSpeedSlider.addChangeListener(e -> System.out.println(runSpeedSlider.getValue()));
+
+        String[] algorithms = { "Bubblesort", "Selectionsort" };
+        JComboBox<String> algoSelector = new JComboBox<>(algorithms);
+        algoSelector.setSelectedIndex(0);
+        algoSelector.addActionListener(e -> System.out.println(algorithms[algoSelector.getSelectedIndex()]));
+
+        ////
+        // Adding buttons to settings panel
+        ////
+        gui.add(runButton);
+        gui.add(runSpeedSlider);
+        gui.add(algoSelector);
+
+        return gui;
+    }
+
     // Create the initial BarComponents
     public JPanel initDataGUI() {
-        JPanel totalGUI = new JPanel();
-        totalGUI.setLayout(new BoxLayout(totalGUI, BoxLayout.LINE_AXIS));
+        JPanel gui = new JPanel();
+        gui.setLayout(new BoxLayout(gui, BoxLayout.LINE_AXIS));
         for (int i = 0; i < Settings.INITIAL_RECT_COUNT; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
             dataBars.add(new JBarComponent(randomNum));
         }
 
-        totalGUI.add(new JSpacerComponent());
+        gui.add(new JSpacerComponent());
         for (JBarComponent bar : dataBars ) {
-            totalGUI.add(bar);
-            totalGUI.add(new JSpacerComponent());
+            gui.add(bar);
+            gui.add(new JSpacerComponent());
         }
 
-        totalGUI.setOpaque(true);
+        gui.setOpaque(true);
         this.setSize(new Dimension(100, 100));
-        return totalGUI;
+        return gui;
     }
 
     // Redraw the GUI based on the date from dataBars

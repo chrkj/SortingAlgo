@@ -6,10 +6,11 @@ V0.1: The bars
 - ⬜ Fix spacing problems when adding multiple new JBarComponents
 
 V0.2: The settings GUI
-- ⬜ 
-- ⬜
-- ⬜
-- ⬜
+- ✅ Add the settings panel
+- ✅ Add run button
+- ✅ Add speed slider
+- ✅ Add Algorithm selector
+- ⬜ Migrate actions/-key listeners to the settings GUI
 
 V0.3: The algorithms
 - ⬜
