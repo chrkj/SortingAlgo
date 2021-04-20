@@ -1,8 +1,6 @@
 package Resourses;
 
-import Algorithms.BubbleSort;
-import Algorithms.SelectionSort;
-import Algorithms.SortingAlgorithm;
+import Algorithms.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -29,11 +27,11 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         Button runButton = new Button();
         runButton.setLabel("Run");
         runButton.addActionListener(e -> {
-            System.out.println("RunButton pressed!");
+            System.err.println("RunButton pressed!");
             SwingWorker<Void, Void> swingWorker = new SwingWorker<>() {
                 @Override
                 protected Void doInBackground() {
-                    System.out.println("SwingWorker initialized.");
+                    System.err.println("SwingWorker initialized.");
                     SortingAlgorithm algorithm = selectedAlgorithm;
                     algorithm.run();
                     return null;
@@ -46,7 +44,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         Button shuffleButton = new Button();
         shuffleButton.setLabel("Shuffle");
         shuffleButton.addActionListener(e -> {
-            System.out.println("shuffleButton pressed!");
+            System.err.println("shuffleButton pressed!");
             arr.shuffle();
         });
 
@@ -59,7 +57,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         runSpeedSlider.setLabelTable(labelTable);
         runSpeedSlider.setPaintLabels(true);
         runSpeedSlider.addChangeListener(e -> {
-            System.out.println(runSpeedSlider.getValue());
+            System.err.println("Speed: " + runSpeedSlider.getValue() + "ms");
             Settings.speed = runSpeedSlider.getValue();
         });
 
@@ -67,6 +65,12 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
         algorithms.add(new BubbleSort(arr));
         algorithms.add(new SelectionSort(arr));
+        algorithms.add(new InsertionSort(arr));
+        algorithms.add(new MergeSort(arr));
+        algorithms.add(new HeapSort(arr));
+        algorithms.add(new QuickSort(arr));
+        algorithms.add(new RadixSort(arr));
+
         String[] boxStrings = new String[algorithms.size()];
         for (int i = 0; i < algorithms.size(); i++) {
             boxStrings[i] = algorithms.get(i).getAlgorithmName();
@@ -74,7 +78,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         JComboBox<String> algoSelector = new JComboBox<>(boxStrings);
         algoSelector.setSelectedIndex(0);
         algoSelector.addActionListener(e -> {
-            System.out.println(boxStrings[algoSelector.getSelectedIndex()]);
+            System.err.println("Selected: " + boxStrings[algoSelector.getSelectedIndex()]);
             selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
         });
         algoSelector.addPopupMenuListener(this);
@@ -83,7 +87,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         Button addBar = new Button();
         addBar.setLabel("Add bar");
         addBar.addActionListener(e -> {
-            System.out.println("addBar pressed!");
+            System.err.println("addButton pressed!");
             int randomHeight = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
             JBarComponent tmpBar = new JBarComponent(randomHeight);
             arr.dataBars.add(tmpBar);
@@ -95,7 +99,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         Button removeBar = new Button();
         removeBar.setLabel("Remove bar");
         removeBar.addActionListener(e -> {
-            System.out.println("removeBar pressed!");
+            System.err.println("removeButton pressed!");
             if(arr.dataBars.size() > 2) {
                 arr.dataBars.remove(arr.dataBars.size() - 1);
             }

@@ -29,7 +29,7 @@ public class BubbleSort extends SortingAlgorithm {
 
     @Override
     public String getAlgorithmName() {
-        return "Bubble sort";
+        return "Bubble Sort";
     }
 
 }

@@ -35,6 +35,6 @@ public class SelectionSort extends SortingAlgorithm {
 
     @Override
     public String getAlgorithmName() {
-        return "Selection sort";
+        return "Selection Sort";
     }
 }

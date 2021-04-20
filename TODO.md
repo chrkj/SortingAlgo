@@ -16,6 +16,7 @@ The settings GUI
 - ⬜ Fix speed slider values
 - ⬜ Make pause / step button and functionality
 - ⬜ Make some settings un-interactive while running
+- ⬜ Add array accesses /- compare counter
 
 The algorithms
 - ✅ Add Bubblesort
