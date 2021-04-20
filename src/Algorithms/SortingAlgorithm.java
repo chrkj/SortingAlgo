@@ -1,14 +1,15 @@
 package Algorithms;
 
-import Controls.ControlFrame;
+import Resourses.sortArray;
 
 public abstract class SortingAlgorithm {
 
-    protected ControlFrame controlFrame;
+    protected sortArray arr;
 
-    public SortingAlgorithm(ControlFrame controlFrame) {
-        this.controlFrame = controlFrame;
+    public SortingAlgorithm(sortArray arr) {
+        this.arr = arr;
     }
-    public abstract void sort(); // Temp
-    public abstract void step(); // Temp
+
+    public abstract void run();
+
 }

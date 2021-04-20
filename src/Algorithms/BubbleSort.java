@@ -1,20 +1,30 @@
 package Algorithms;
 
-import Controls.ControlFrame;
+import Resourses.sortArray;
+
+import java.awt.*;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(ControlFrame controlFrame) {
-        super(controlFrame);
+    public BubbleSort(sortArray arr) {
+        super(arr);
     }
 
     @Override
-    public void sort() {
-
+    public void run() {
+        int n = arr.dataBars.size();
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+                arr.compare(j, j - 1);
+                if (arr.dataBars.get(j - 1).getHeight() > arr.dataBars.get(j).getHeight()) {
+                    //swap elements
+                    arr.swap(j - 1, j);
+                }
+                arr.dataBars.get(j - 1).setColor(Color.BLACK);
+                arr.dataBars.get(j).setColor(Color.BLACK);
+            }
+        }
+        arr.done();
     }
 
-    @Override
-    public void step() {
-
-    }
 }

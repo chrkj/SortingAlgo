@@ -1,3 +1,4 @@
+#TODO:
 V0.1: The bars
 - ✅ Fix repaint issue for GUI when data changes
 - ✅ Implement the ability to increase the number of JBarComponents
@@ -10,10 +11,13 @@ V0.2: The settings GUI
 - ✅ Add run button
 - ✅ Add speed slider
 - ✅ Add Algorithm selector
-- ⬜ Migrate actions/-key listeners to the settings GUI
+- ⬜ Fix speed slider values
+- ⬜ Make pause / step button and functionality
+- ⬜ Make some settings un-interactive while running
 
 V0.3: The algorithms
-- ⬜
-- ⬜
-- ⬜
-- ⬜
+- ✅ Add Bubblesort
+- ✅ Resolve runtime errors (concurrency)
+- ✅ Optimize rendering
+- ⬜ Cleanup code
+- ⬜ Implement SelectionSort

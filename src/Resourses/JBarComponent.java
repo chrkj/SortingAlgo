@@ -3,7 +3,7 @@ package Resourses;
 import java.awt.*;
 import javax.swing.*;
 
-public class JBarComponent extends JPanel implements Comparable<JBarComponent> {
+public class JBarComponent extends JPanel {
     JLabel dataLabel;
 
     public JBarComponent(int height) {
@@ -30,13 +30,4 @@ public class JBarComponent extends JPanel implements Comparable<JBarComponent> {
         this.setBackground(bg);
     }
 
-    @Override
-    public int compareTo(JBarComponent o) {
-        if (this.getHeight() > o.getHeight()) {
-            return 1;
-        } else if (this.getHeight() < o.getHeight()) {
-            return -1;
-        }
-        return 0;
-    }
 }
