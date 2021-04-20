@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class sortArray extends JPanel {
+public class arrayPanel extends JPanel {
 
-    public ArrayList<JBarComponent> dataBars;
     public ControlFrame frame;
+    public ArrayList<JBarComponent> dataBars;
 
-    public sortArray(ControlFrame frame) {
+    public arrayPanel(ControlFrame frame) {
         this.frame = frame;
         this.dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));

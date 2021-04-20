@@ -1,12 +1,12 @@
 package Algorithms;
 
-import Resourses.sortArray;
+import Resourses.arrayPanel;
 
 import java.awt.*;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(sortArray arr) {
+    public BubbleSort(arrayPanel arr) {
         super(arr);
     }
 

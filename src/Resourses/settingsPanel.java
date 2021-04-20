@@ -10,7 +10,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class settingsPanel extends JPanel {
 
-    public settingsPanel(sortArray arr) {
+    public settingsPanel(arrayPanel arr) {
         this.setBackground(Color.LIGHT_GRAY);
         this.setBounds(5, 5, Settings.SETTINGS_WIDTH, Settings.SETTINGS_HEIGHT);
 

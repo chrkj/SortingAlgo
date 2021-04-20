@@ -1,12 +1,12 @@
 package Algorithms;
 
-import Resourses.sortArray;
+import Resourses.arrayPanel;
 
 public abstract class SortingAlgorithm {
 
-    protected sortArray arr;
+    protected arrayPanel arr;
 
-    public SortingAlgorithm(sortArray arr) {
+    public SortingAlgorithm(arrayPanel arr) {
         this.arr = arr;
     }
 
