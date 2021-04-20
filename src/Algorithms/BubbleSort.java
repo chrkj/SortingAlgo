@@ -20,11 +20,16 @@ public class BubbleSort extends SortingAlgorithm {
                     //swap elements
                     arr.swap(j - 1, j);
                 }
-                arr.dataBars.get(j - 1).setColor(Color.BLACK);
-                arr.dataBars.get(j).setColor(Color.BLACK);
+                arr.setColor(j - 1, Color.BLACK);
+                arr.setColor(j, Color.BLACK);
             }
         }
         arr.done();
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return "Bubble sort";
     }
 
 }

@@ -1,16 +1,23 @@
 package Resourses;
 
 import Algorithms.BubbleSort;
+import Algorithms.SelectionSort;
 import Algorithms.SortingAlgorithm;
 
 import java.awt.*;
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class settingsPanel extends JPanel {
+public class settingsPanel extends JPanel implements PopupMenuListener {
+
+    private SortingAlgorithm selectedAlgorithm;
 
     public settingsPanel(arrayPanel arr) {
+        selectedAlgorithm = new BubbleSort(arr);
         this.setBackground(Color.LIGHT_GRAY);
         this.setBounds(5, 5, Settings.SETTINGS_WIDTH, Settings.SETTINGS_HEIGHT);
 
@@ -27,7 +34,7 @@ public class settingsPanel extends JPanel {
                 @Override
                 protected Void doInBackground() {
                     System.out.println("SwingWorker initialized.");
-                    SortingAlgorithm algorithm = new BubbleSort(arr);
+                    SortingAlgorithm algorithm = selectedAlgorithm;
                     algorithm.run();
                     return null;
                 }
@@ -57,10 +64,20 @@ public class settingsPanel extends JPanel {
         });
 
         // Algorithm selector dropdown
-        String[] algorithms = { "Bubblesort", "Selectionsort" };
-        JComboBox<String> algoSelector = new JComboBox<>(algorithms);
+        ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
+        algorithms.add(new BubbleSort(arr));
+        algorithms.add(new SelectionSort(arr));
+        String[] boxStrings = new String[algorithms.size()];
+        for (int i = 0; i < algorithms.size(); i++) {
+            boxStrings[i] = algorithms.get(i).getAlgorithmName();
+        }
+        JComboBox<String> algoSelector = new JComboBox<>(boxStrings);
         algoSelector.setSelectedIndex(0);
-        algoSelector.addActionListener(e -> System.out.println(algorithms[algoSelector.getSelectedIndex()]));
+        algoSelector.addActionListener(e -> {
+            System.out.println(boxStrings[algoSelector.getSelectedIndex()]);
+            selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
+        });
+        algoSelector.addPopupMenuListener(this);
 
         // Add bar to sorting array button
         Button addBar = new Button();
@@ -87,7 +104,7 @@ public class settingsPanel extends JPanel {
         });
 
         ////
-        // Adding buttons to settings panel
+        // Adding components to settings panel
         ////
         this.add(runButton);
         this.add(runSpeedSlider);
@@ -97,4 +114,15 @@ public class settingsPanel extends JPanel {
         this.add(removeBar);
     }
 
+    @Override
+    public void popupMenuWillBecomeVisible(PopupMenuEvent e) { }
+
+    @Override
+    public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+        // Needed to redraw components under the popup menu
+        revalidate();
+    }
+
+    @Override
+    public void popupMenuCanceled(PopupMenuEvent e) { }
 }

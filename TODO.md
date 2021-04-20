@@ -6,6 +6,7 @@ The bars
 - ✅ Add height of JBarComponents as a text field to the components
 - ⬜ Fix spacing problems when adding multiple new JBarComponents
 - ⬜ Add constrains to the amount of bars
+- ⬜ Add functionality to specify bar values
 
 The settings GUI
 - ✅ Add the settings panel
@@ -21,5 +22,5 @@ The algorithms
 - ✅ Resolve runtime errors (concurrency)
 - ✅ Optimize rendering
 - ⬜ Cleanup code
-- ⬜ Implement SelectionSort
-    - ⬜ Add functionallity to dropdown menu (algoSelector)
+- ✅ Implement SelectionSort
+    - ✅ Add functionality to dropdown menu (algoSelector)

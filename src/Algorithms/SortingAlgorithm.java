@@ -11,5 +11,6 @@ public abstract class SortingAlgorithm {
     }
 
     public abstract void run();
+    public abstract String getAlgorithmName();
 
 }

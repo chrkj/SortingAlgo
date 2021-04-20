@@ -26,7 +26,6 @@ public class arrayPanel extends JPanel {
             add(bar);
             add(new JSpacerComponent());
         }
-        setOpaque(true);
         setSize(new Dimension(100, 100));
     }
 
@@ -59,8 +58,8 @@ public class arrayPanel extends JPanel {
     }
 
     public void swap(int firstIndex, int secondIndex) {
-        dataBars.get(firstIndex).setColor(Color.GREEN);
-        dataBars.get(secondIndex).setColor(Color.GREEN);
+        setColor(firstIndex, Color.GREEN);
+        setColor(secondIndex, Color.GREEN);
         Collections.swap(dataBars, firstIndex, secondIndex);
         delay(Settings.speed);
     }
@@ -71,16 +70,26 @@ public class arrayPanel extends JPanel {
     }
 
     public void done() {
-        for (JBarComponent dataBar : dataBars) {
-            dataBar.setColor(Color.GREEN);
+        for (int i = 0; i < dataBars.size(); i++) {
+            setColor(i, Color.GREEN);
             delay(50);
-            dataBar.setColor(Color.BLACK);
+            setColor(i, Color.BLACK);
         }
     }
 
     public void compare(int firstIndex, int secondIndex) {
-        dataBars.get(firstIndex).setColor(Color.RED);
-        dataBars.get(secondIndex).setColor(Color.RED);
+        setColor(firstIndex, Color.RED);
+        setColor(secondIndex, Color.RED);
         delay(Settings.speed);
+    }
+
+    public void setColor(int index, Color color) {
+        dataBars.get(index).setBarColor(color);
+        if (color == Color.YELLOW || color == Color.GREEN) {
+            dataBars.get(index).setLabelColor(Color.BLACK);
+        } else {
+            dataBars.get(index).setLabelColor(Color.WHITE);
+        }
+        delay(1);
     }
 }

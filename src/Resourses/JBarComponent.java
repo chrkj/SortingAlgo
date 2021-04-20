@@ -4,7 +4,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class JBarComponent extends JPanel {
-    JLabel dataLabel;
+
+    private JLabel dataLabel;
 
     public JBarComponent(int height) {
         // Setup dimensions of the bar
@@ -26,8 +27,12 @@ public class JBarComponent extends JPanel {
         this.setMaximumSize(new Dimension(1000, height));
     }
 
-    public void setColor(Color bg) {
-        this.setBackground(bg);
+    public void setBarColor(Color color) {
+        this.setBackground(color);
+    }
+
+    public void setLabelColor(Color color) {
+        this.dataLabel.setForeground(color);
     }
 
 }
