@@ -1,6 +1,5 @@
 package Algorithms;
 
-import Resourses.Settings;
 import Resourses.arrayPanel;
 
 import java.awt.*;

@@ -1,10 +1,11 @@
 package Algorithms;
 
+import Resourses.Settings;
 import Resourses.arrayPanel;
 
 public abstract class SortingAlgorithm {
 
-    protected arrayPanel arr;
+    protected final arrayPanel arr;
 
     public SortingAlgorithm(arrayPanel arr) {
         this.arr = arr;

@@ -2,8 +2,11 @@ package Resourses;
 
 public class Settings {
     public static int speed = 500;
-    public static int minBarHeight = 20;
-    public static int maxBarHeight = 500;
+    public static int arrayAccesses = 0;
+    public static int arrayComparisons = 0;
+
+    public static final int minBarHeight = 20;
+    public static final int maxBarHeight = 500;
 
     public static final int BAR_SPACING = 3;
     public static final int INITIAL_HEIGHT = 800;

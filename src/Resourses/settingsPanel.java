@@ -12,9 +12,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class settingsPanel extends JPanel implements PopupMenuListener {
 
+    private boolean running;
     private SortingAlgorithm selectedAlgorithm;
+    private SwingWorker<Void, Void> swingWorker;
+    private final JLabel arrayAccesses;
+    private final JLabel arrayComparisons;
 
     public settingsPanel(arrayPanel arr) {
+        running = false;
         selectedAlgorithm = new BubbleSort(arr);
         this.setBackground(Color.LIGHT_GRAY);
         this.setBounds(5, 5, Settings.SETTINGS_WIDTH, Settings.SETTINGS_HEIGHT);
@@ -28,16 +33,29 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         runButton.setLabel("Run");
         runButton.addActionListener(e -> {
             System.err.println("RunButton pressed!");
-            SwingWorker<Void, Void> swingWorker = new SwingWorker<>() {
-                @Override
-                protected Void doInBackground() {
-                    System.err.println("SwingWorker initialized.");
-                    SortingAlgorithm algorithm = selectedAlgorithm;
-                    algorithm.run();
-                    return null;
-                }
-            };
-            swingWorker.execute();
+            if (!running) {
+                System.err.println("{RUN}");
+                running = true;
+                swingWorker = new SwingWorker<>() {
+                    @Override
+                    protected Void doInBackground() {
+                        System.err.println("SwingWorker initialized.");
+                        SortingAlgorithm algorithm = selectedAlgorithm;
+                        algorithm.run();
+                        return null;
+                    }
+                };
+                Settings.arrayAccesses = 0;
+                Settings.arrayComparisons = 0;
+                swingWorker.execute();
+                runButton.setLabel("Stop");
+            } else {
+                System.err.println("{STOP}");
+                running = false;
+                swingWorker.cancel(true);
+                System.err.println("SwingWorker canceled");
+                runButton.setLabel("Run");
+            }
         });
 
         // Shuffle button
@@ -52,10 +70,11 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MIN, Settings.SPEED_MAX, Settings.SPEED_INIT);
         runSpeedSlider.setBackground(Color.LIGHT_GRAY);
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
-        labelTable.put(Settings.SPEED_MIN, new JLabel("Slow") );
-        labelTable.put(Settings.SPEED_MAX, new JLabel("Fast") );
+        labelTable.put(Settings.SPEED_MIN, new JLabel("Fast") );
+        labelTable.put(Settings.SPEED_MAX, new JLabel("Slow") );
         runSpeedSlider.setLabelTable(labelTable);
         runSpeedSlider.setPaintLabels(true);
+        runSpeedSlider.setInverted(true);
         runSpeedSlider.addChangeListener(e -> {
             System.err.println("Speed: " + runSpeedSlider.getValue() + "ms");
             Settings.speed = runSpeedSlider.getValue();
@@ -107,6 +126,16 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
             arr.reDraw();
         });
 
+        // Add Array accesses counter
+        arrayAccesses = new JLabel();
+        arrayAccesses.setText("Array accesses: " + Settings.arrayAccesses);
+        arrayAccesses.setForeground(Color.BLACK);
+
+        // Add Array comparisons counter
+        arrayComparisons = new JLabel();
+        arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
+        arrayComparisons.setForeground(Color.BLACK);
+
         ////
         // Adding components to settings panel
         ////
@@ -116,6 +145,8 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         this.add(shuffleButton);
         this.add(addBar);
         this.add(removeBar);
+        this.add(arrayAccesses);
+        this.add(arrayComparisons);
     }
 
     @Override
@@ -129,4 +160,10 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent e) { }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        arrayAccesses.setText("Array accesses: " + Settings.arrayAccesses);
+        arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
+    }
 }

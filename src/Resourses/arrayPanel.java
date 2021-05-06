@@ -10,8 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class arrayPanel extends JPanel {
 
-    public ControlFrame frame;
-    public ArrayList<JBarComponent> dataBars;
+    public final ControlFrame frame;
+    public final ArrayList<JBarComponent> dataBars;
 
     public arrayPanel(ControlFrame frame) {
         this.frame = frame;
@@ -60,6 +60,7 @@ public class arrayPanel extends JPanel {
     public void swap(int firstIndex, int secondIndex) {
         setColor(firstIndex, Color.GREEN);
         setColor(secondIndex, Color.GREEN);
+        Settings.arrayAccesses++;
         Collections.swap(dataBars, firstIndex, secondIndex);
         delay(Settings.speed);
     }
@@ -78,6 +79,7 @@ public class arrayPanel extends JPanel {
     }
 
     public void compare(int firstIndex, int secondIndex) {
+        Settings.arrayComparisons++;
         setColor(firstIndex, Color.RED);
         setColor(secondIndex, Color.RED);
         delay(Settings.speed);

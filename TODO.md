@@ -7,16 +7,20 @@ The bars
 - ⬜ Fix spacing problems when adding multiple new JBarComponents
 - ⬜ Add constrains to the amount of bars
 - ⬜ Add functionality to specify bar values
+- ⬜ Add Shuffle worst / best case based on algorithm
+- ⬜ Add gradle as a build project 
 
 The settings GUI
 - ✅ Add the settings panel
 - ✅ Add run button
 - ✅ Add speed slider
 - ✅ Add Algorithm selector
-- ⬜ Fix speed slider values
+- ✅ Fix speed slider values
+- ✅ Add array accesses /- compare counter
 - ⬜ Make pause / step button and functionality
 - ⬜ Make some settings un-interactive while running
-- ⬜ Add array accesses /- compare counter
+- ⬜ Make "Stop" not sort the rest of the array
+- ⬜ Add "Pause" functionality
 
 The algorithms
 - ✅ Add Bubblesort
