@@ -1,6 +1,5 @@
 package Algorithms;
 
-import Resourses.Settings;
 import Resourses.arrayPanel;
 
 public abstract class SortingAlgorithm {
