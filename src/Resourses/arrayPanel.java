@@ -63,6 +63,8 @@ public class arrayPanel extends JPanel {
         Settings.arrayAccesses++;
         Collections.swap(dataBars, firstIndex, secondIndex);
         delay(Settings.speed);
+        setColor(firstIndex, Color.BLACK);
+        setColor(secondIndex, Color.BLACK);
     }
 
     @Override
@@ -83,6 +85,8 @@ public class arrayPanel extends JPanel {
         setColor(firstIndex, Color.RED);
         setColor(secondIndex, Color.RED);
         delay(Settings.speed);
+        setColor(firstIndex, Color.BLACK);
+        setColor(secondIndex, Color.BLACK);
     }
 
     public void setColor(int index, Color color) {
