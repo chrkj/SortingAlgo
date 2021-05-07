@@ -18,17 +18,12 @@ public class SelectionSort extends SortingAlgorithm {
             int min = i;
             for (int j = i + 1; j < n; j++) {
                 arr.compare(j, min);
-                if (arr.dataBars.get(j).getHeight() < arr.dataBars.get(min).getHeight()) {
-                    arr.setColor(min, Color.BLACK);
+                if (arr.getValue(j) < arr.getValue(min)) {
                     arr.setColor(i, Color.YELLOW);
                     min = j;
-                    continue;
                 }
-                arr.setColor(j, Color.BLACK);
             }
             arr.swap(i, min);
-            arr.setColor(i, Color.BLACK);
-            arr.setColor(min, Color.BLACK);
         }
         arr.done();
     }

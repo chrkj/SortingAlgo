@@ -98,4 +98,8 @@ public class arrayPanel extends JPanel {
         }
         delay(1);
     }
+
+    public int getValue(int index) {
+        return dataBars.get(index).getHeight();
+    }
 }

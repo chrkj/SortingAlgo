@@ -17,14 +17,10 @@ public class InsertionSort extends SortingAlgorithm {
                 arr.setColor(i, Color.YELLOW);
                 arr.compare(j, j - 1);
                 arr.setColor(i, Color.YELLOW);
-                if (arr.dataBars.get(j).getHeight() < arr.dataBars.get(j - 1).getHeight()) {
+                if (arr.getValue(j) < arr.getValue(j - 1)) {
                     arr.swap(j, j - 1);
                     arr.setColor(i, Color.YELLOW);
-                    arr.setColor(j, Color.BLACK);
-                    arr.setColor(j - 1, Color.BLACK);
                 } else {
-                    arr.setColor(j, Color.BLACK);
-                    arr.setColor(j - 1, Color.BLACK);
                     break;
                 }
             }
