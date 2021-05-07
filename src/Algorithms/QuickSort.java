@@ -46,4 +46,9 @@ public class QuickSort extends SortingAlgorithm {
     public String getAlgorithmName() {
         return "Quick Sort";
     }
+
+    @Override
+    public String getTimeComplexity() {
+        return "O(n log(n))";
+    }
 }

@@ -27,4 +27,9 @@ public class BubbleSort extends SortingAlgorithm {
         return "Bubble Sort";
     }
 
+    @Override
+    public String getTimeComplexity() {
+        return "O(n^2)";
+    }
+
 }

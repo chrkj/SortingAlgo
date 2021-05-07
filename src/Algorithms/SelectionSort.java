@@ -32,4 +32,9 @@ public class SelectionSort extends SortingAlgorithm {
     public String getAlgorithmName() {
         return "Selection Sort";
     }
+
+    @Override
+    public String getTimeComplexity() {
+        return "O(n^2)";
+    }
 }

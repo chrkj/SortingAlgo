@@ -33,4 +33,9 @@ public class InsertionSort extends SortingAlgorithm {
     public String getAlgorithmName() {
         return "Insertion Sort";
     }
+
+    @Override
+    public String getTimeComplexity() {
+        return "O(n^2)";
+    }
 }

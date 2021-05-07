@@ -20,11 +20,6 @@ public class MergeSort extends SortingAlgorithm {
         System.out.println("Done");
     }
 
-    @Override
-    public String getAlgorithmName() {
-        return "Merge Sort";
-    }
-
     private void sort(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int hi) {
         if (hi <= lo) {
             return;
@@ -53,6 +48,16 @@ public class MergeSort extends SortingAlgorithm {
                 a.set(k, aux.get(i++));
             }
         }
+    }
+
+    @Override
+    public String getAlgorithmName() {
+        return "Merge Sort";
+    }
+
+    @Override
+    public String getTimeComplexity() {
+        return "O(n log(n))";
     }
 
 }

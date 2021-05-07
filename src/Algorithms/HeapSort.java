@@ -17,4 +17,9 @@ public class HeapSort extends SortingAlgorithm {
     public String getAlgorithmName() {
         return "Heap Sort";
     }
+
+    @Override
+    public String getTimeComplexity() {
+        return "O(n log(n))";
+    }
 }

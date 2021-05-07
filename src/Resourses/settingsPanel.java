@@ -18,6 +18,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
     private final JLabel arrayAccesses;
     private final JLabel arrayComparisons;
     private final JLabel barCounter;
+    private final JLabel timeComplexity;
 
     public settingsPanel(arrayPanel arr) {
         running = false;
@@ -81,28 +82,6 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
             Settings.speed = runSpeedSlider.getValue();
         });
 
-        // Algorithm selector dropdown
-        ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
-        algorithms.add(new BubbleSort(arr));
-        algorithms.add(new SelectionSort(arr));
-        algorithms.add(new InsertionSort(arr));
-        algorithms.add(new MergeSort(arr));
-        algorithms.add(new HeapSort(arr));
-        algorithms.add(new QuickSort(arr));
-        algorithms.add(new RadixSort(arr));
-
-        String[] boxStrings = new String[algorithms.size()];
-        for (int i = 0; i < algorithms.size(); i++) {
-            boxStrings[i] = algorithms.get(i).getAlgorithmName();
-        }
-        JComboBox<String> algoSelector = new JComboBox<>(boxStrings);
-        algoSelector.setSelectedIndex(0);
-        algoSelector.addActionListener(e -> {
-            System.err.println("Selected: " + boxStrings[algoSelector.getSelectedIndex()]);
-            selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
-        });
-        algoSelector.addPopupMenuListener(this);
-
         // Add bar to sorting array button
         Button addBar = new Button();
         addBar.setLabel("Add bar");
@@ -139,10 +118,37 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
         arrayComparisons.setForeground(Color.BLACK);
 
-        // Add Array comparisons counter
+        // Add Array bar counter
         barCounter = new JLabel();
-        arrayComparisons.setText("Number of elements: " + Settings.barCounter);
-        arrayComparisons.setForeground(Color.BLACK);
+        barCounter.setText("Number of elements: " + Settings.barCounter);
+        barCounter.setForeground(Color.BLACK);
+
+        // Algorithm time complexity
+        timeComplexity = new JLabel();
+        timeComplexity.setText("Time Complexity: " + selectedAlgorithm.getTimeComplexity());
+        timeComplexity.setForeground(Color.BLACK);
+
+        // Algorithm selector dropdown menu
+        ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
+        algorithms.add(new BubbleSort(arr));
+        algorithms.add(new SelectionSort(arr));
+        algorithms.add(new InsertionSort(arr));
+        algorithms.add(new MergeSort(arr));
+        algorithms.add(new HeapSort(arr));
+        algorithms.add(new QuickSort(arr));
+
+        String[] boxStrings = new String[algorithms.size()];
+        for (int i = 0; i < algorithms.size(); i++) {
+            boxStrings[i] = algorithms.get(i).getAlgorithmName();
+        }
+        JComboBox<String> algoSelector = new JComboBox<>(boxStrings);
+        algoSelector.setSelectedIndex(0);
+        algoSelector.addActionListener(e -> {
+            System.err.println("Selected: " + boxStrings[algoSelector.getSelectedIndex()]);
+            selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
+            timeComplexity.setText("Time Complexity: " + selectedAlgorithm.getTimeComplexity());
+        });
+        algoSelector.addPopupMenuListener(this);
 
         ////
         // Adding components to settings panel
@@ -156,6 +162,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         this.add(arrayAccesses);
         this.add(arrayComparisons);
         this.add(barCounter);
+        this.add(timeComplexity);
     }
 
     @Override
