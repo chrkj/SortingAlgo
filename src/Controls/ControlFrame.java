@@ -21,7 +21,7 @@ public class ControlFrame extends JFrame {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) { }
-        new ControlFrame("Sorting Visualizer").setSize(Settings.INITIAL_WIDTH, Settings.INITIAL_HEIGHT);
+        new ControlFrame("Sorting Visualizer").setSize(Settings.INITIAL_WINDOW_WIDTH, Settings.INITIAL_WINDOW_HEIGHT);
     }
 
 }

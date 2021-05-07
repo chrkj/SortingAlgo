@@ -18,7 +18,7 @@ public class arrayPanel extends JPanel {
         this.dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
         for (int i = 0; i < Settings.INITIAL_RECT_COUNT; i++) {
-            int randomNum = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
+            int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
             this.dataBars.add(new JBarComponent(randomNum));
         }
         add(new JSpacerComponent());
@@ -31,7 +31,7 @@ public class arrayPanel extends JPanel {
 
     public void shuffle() {
         for (JBarComponent bar : dataBars) {
-            bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1));
+            bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1));
         }
     }
 

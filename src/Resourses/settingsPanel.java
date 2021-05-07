@@ -24,7 +24,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         running = false;
         selectedAlgorithm = new BubbleSort(arr);
         this.setBackground(Color.LIGHT_GRAY);
-        this.setBounds(5, 5, Settings.SETTINGS_WIDTH, Settings.SETTINGS_HEIGHT);
+        this.setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
 
         ////
         // Initializing settings components
@@ -69,11 +69,11 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         });
 
         // Run speed slider
-        JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MIN, Settings.SPEED_MAX, Settings.SPEED_INIT);
+        JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MAX, Settings.SPEED_MIN, Settings.SPEED_INIT);
         // runSpeedSlider.setBackground(Color.LIGHT_GRAY);
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
-        labelTable.put(Settings.SPEED_MIN, new JLabel("Fast") );
-        labelTable.put(Settings.SPEED_MAX, new JLabel("Slow") );
+        labelTable.put(Settings.SPEED_MAX, new JLabel("Fast") );
+        labelTable.put(Settings.SPEED_MIN, new JLabel("Slow") );
         runSpeedSlider.setLabelTable(labelTable);
         runSpeedSlider.setPaintLabels(true);
         runSpeedSlider.setInverted(true);
@@ -88,7 +88,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         addBar.addActionListener(e -> {
             Settings.barCounter++;
             System.err.println("addButton pressed!");
-            int randomHeight = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
+            int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
             JBarComponent tmpBar = new JBarComponent(randomHeight);
             arr.dataBars.add(tmpBar);
             repaint();
