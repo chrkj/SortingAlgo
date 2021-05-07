@@ -17,6 +17,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
     private SwingWorker<Void, Void> swingWorker;
     private final JLabel arrayAccesses;
     private final JLabel arrayComparisons;
+    private final JLabel barCounter;
 
     public settingsPanel(arrayPanel arr) {
         running = false;
@@ -68,7 +69,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
 
         // Run speed slider
         JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MIN, Settings.SPEED_MAX, Settings.SPEED_INIT);
-        runSpeedSlider.setBackground(Color.LIGHT_GRAY);
+        // runSpeedSlider.setBackground(Color.LIGHT_GRAY);
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         labelTable.put(Settings.SPEED_MIN, new JLabel("Fast") );
         labelTable.put(Settings.SPEED_MAX, new JLabel("Slow") );
@@ -106,6 +107,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         Button addBar = new Button();
         addBar.setLabel("Add bar");
         addBar.addActionListener(e -> {
+            Settings.barCounter++;
             System.err.println("addButton pressed!");
             int randomHeight = ThreadLocalRandom.current().nextInt(Settings.minBarHeight, Settings.maxBarHeight + 1);
             JBarComponent tmpBar = new JBarComponent(randomHeight);
@@ -119,6 +121,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         removeBar.setLabel("Remove bar");
         removeBar.addActionListener(e -> {
             System.err.println("removeButton pressed!");
+            if (Settings.barCounter > 2) { Settings.barCounter--; }
             if(arr.dataBars.size() > 2) {
                 arr.dataBars.remove(arr.dataBars.size() - 1);
             }
@@ -136,6 +139,11 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
         arrayComparisons.setForeground(Color.BLACK);
 
+        // Add Array comparisons counter
+        barCounter = new JLabel();
+        arrayComparisons.setText("Number of elements: " + Settings.barCounter);
+        arrayComparisons.setForeground(Color.BLACK);
+
         ////
         // Adding components to settings panel
         ////
@@ -147,6 +155,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
         this.add(removeBar);
         this.add(arrayAccesses);
         this.add(arrayComparisons);
+        this.add(barCounter);
     }
 
     @Override
@@ -165,5 +174,6 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
     public void paintComponent(Graphics g) {
         arrayAccesses.setText("Array accesses: " + Settings.arrayAccesses);
         arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
+        barCounter.setText("Number of elements: " + Settings.barCounter);
     }
 }
