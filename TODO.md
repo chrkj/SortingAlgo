@@ -17,15 +17,17 @@ The settings GUI
 - ✅ Add Algorithm selector
 - ✅ Fix speed slider values
 - ✅ Add array accesses /- compare counter
+- ✅ Add bar counter field
 - ⬜ Make pause / step button and functionality
 - ⬜ Make some settings un-interactive while running
 - ⬜ Make "Stop" not sort the rest of the array
-- ⬜ Add "Pause" functionality
 
 The algorithms
 - ✅ Add Bubblesort
+- ✅ Add Insertionsort
+- ✅ Add Selectionsort 
+- ✅ Add Quicksort
+- ✅ Add Heapsort
+- ⬜ Add Mergesort
 - ✅ Resolve runtime errors (concurrency)
 - ✅ Optimize rendering
-- ⬜ Cleanup code
-- ✅ Implement SelectionSort
-    - ✅ Add functionality to dropdown menu (algoSelector)
