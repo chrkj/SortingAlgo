@@ -75,7 +75,7 @@ public class arrayPanel extends JPanel {
     public void done() {
         for (int i = 0; i < dataBars.size(); i++) {
             setColor(i, Color.GREEN);
-            delay(50);
+            delay(25);
             setColor(i, Color.BLACK);
         }
     }
