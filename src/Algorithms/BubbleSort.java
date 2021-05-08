@@ -14,7 +14,7 @@ public class BubbleSort extends SortingAlgorithm {
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
                 arr.compare(j, j - 1);
-                if (arr.dataBars.get(j - 1).getHeight() > arr.dataBars.get(j).getHeight()) {
+                if (arr.getValue(j - 1) > arr.getValue(j)) {
                     arr.swap(j - 1, j);
                 }
             }

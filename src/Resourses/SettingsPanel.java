@@ -89,7 +89,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
             JBarComponent tmpBar = new JBarComponent(randomHeight, arr.dataBars.size());
             arr.dataBars.add(tmpBar);
             repaint();
-            arr.reDraw();
         });
 
         // Remove bar from sorting array button
@@ -102,7 +101,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                 arr.dataBars.remove(arr.dataBars.size() - 1);
             }
             repaint();
-            arr.reDraw();
         });
 
         // Algorithm selector dropdown menu

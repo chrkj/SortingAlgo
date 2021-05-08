@@ -18,7 +18,13 @@ public class ArrayPanel extends JPanel {
     public ArrayPanel(ControlFrame frame) {
         this.frame = frame;
         this.dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
-        setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+
+        RelativeLayout layout = new RelativeLayout(RelativeLayout.X_AXIS, Settings.BAR_SPACING);
+        layout.setFill(true);
+        layout.setRoundingPolicy(RelativeLayout.EQUAL);
+        layout.setAlignment(RelativeLayout.TRAILING);
+
+        setLayout(layout);
         setBackground(Settings.ARRAY_PANEL_COLOR);
 
         // Populate dataBars with JBarComponents of random height
@@ -27,7 +33,6 @@ public class ArrayPanel extends JPanel {
             dataBars.add(new JBarComponent(randomNum, i));
         }
 
-        setSize(new Dimension(100, 100));
     }
 
     public void shuffle() {
@@ -39,10 +44,8 @@ public class ArrayPanel extends JPanel {
     // Redraw the GUI based on the date from dataBars
     public void reDraw() {
         removeAll();
-        add(new JSpacerComponent());
         for (JBarComponent bar : dataBars ) {
-            add(bar);
-            add(new JSpacerComponent());
+            add(bar, 1f);
         }
         validate();
         repaint();
@@ -119,6 +122,6 @@ public class ArrayPanel extends JPanel {
     }
 
     public int getValue(int index) {
-        return dataBars.get(index).getHeight();
+        return dataBars.get(index).getValue();
     }
 }
