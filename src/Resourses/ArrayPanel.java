@@ -17,6 +17,7 @@ public class ArrayPanel extends JPanel {
         this.frame = frame;
         this.dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+        setBackground(Color.LIGHT_GRAY);
 
         // Populate dataBars with JBarComponents of random height
         for (int i = 0; i < Settings.INITIAL_RECT_COUNT; i++) {
@@ -75,6 +76,7 @@ public class ArrayPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         reDraw();
     }
 

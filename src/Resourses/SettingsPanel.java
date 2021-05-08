@@ -22,8 +22,10 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
 
     public SettingsPanel(ArrayPanel arr) {
         running = false;
-        selectedAlgorithm = new BubbleSort(arr);
-        setBackground(Color.LIGHT_GRAY);
+        selectedAlgorithm = new BubbleSort(arr); // Select initial algorithm
+        Color BACKGROUND_COLOR = Color.GRAY;
+        setBackground(BACKGROUND_COLOR);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
 
         ////
@@ -70,7 +72,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
 
         // Run speed slider
         JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MAX, Settings.SPEED_MIN, Settings.SPEED_INIT);
-        // runSpeedSlider.setBackground(Color.LIGHT_GRAY);
+        runSpeedSlider.setBackground(BACKGROUND_COLOR);
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         labelTable.put(Settings.SPEED_MAX, new JLabel("Fast") );
         labelTable.put(Settings.SPEED_MIN, new JLabel("Slow") );
@@ -179,8 +181,10 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
 
     @Override
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         arrayAccesses.setText("Array accesses: " + Settings.arrayAccesses);
         arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
         barCounter.setText("Number of elements: " + Settings.barCounter);
     }
+
 }
