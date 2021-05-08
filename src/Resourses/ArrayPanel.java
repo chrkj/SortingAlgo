@@ -6,6 +6,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ArrayPanel extends JPanel {
@@ -25,12 +27,6 @@ public class ArrayPanel extends JPanel {
             dataBars.add(new JBarComponent(randomNum, i));
         }
 
-        // Add JBarComponents and spacers to the ArrayPanel
-        add(new JSpacerComponent());
-        for (JBarComponent bar : this.dataBars) {
-            add(bar);
-            add(new JSpacerComponent());
-        }
         setSize(new Dimension(100, 100));
     }
 
@@ -77,13 +73,22 @@ public class ArrayPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        reDraw();
-        g.drawString("Current algorithm: " + Settings.selectedAlgorithm.getAlgorithmName(), 515, 20);
-        g.drawString("Time Complexity: " + Settings.selectedAlgorithm.getTimeComplexity(), 515, 40);
-        g.drawString("Array accesses: " + Settings.arrayAccesses, 515, 60);
-        g.drawString("Array comparisons: " + Settings.arrayComparisons, 515, 80);
-        g.drawString("Number of elements: " + Settings.barCounter, 515, 100);
-        g.drawString("Speed: " + Settings.speed + " ms", 515, 120);
+        Graphics2D panelGraphics = (Graphics2D) g.create();
+        try
+        {
+            Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
+            renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            panelGraphics.addRenderingHints(renderingHints);
+            g.drawString("Current algorithm: " + Settings.selectedAlgorithm.getAlgorithmName(), 515, 20);
+            g.drawString("Time Complexity: " + Settings.selectedAlgorithm.getTimeComplexity(), 515, 40);
+            g.drawString("Array accesses: " + Settings.arrayAccesses, 515, 60);
+            g.drawString("Array comparisons: " + Settings.arrayComparisons, 515, 80);
+            g.drawString("Number of elements: " + Settings.barCounter, 515, 100);
+            g.drawString("Speed: " + Settings.speed + " ms", 515, 120);
+            reDraw();
+        } finally {
+            panelGraphics.dispose();
+        }
     }
 
     public void done() {
