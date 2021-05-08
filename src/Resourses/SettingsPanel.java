@@ -13,16 +13,11 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SettingsPanel extends JPanel implements PopupMenuListener {
 
     private boolean running;
-    private SortingAlgorithm selectedAlgorithm;
     private SwingWorker<Void, Void> swingWorker;
-    private final JLabel arrayAccesses;
-    private final JLabel arrayComparisons;
-    private final JLabel barCounter;
-    private final JLabel timeComplexity;
 
     public SettingsPanel(ArrayPanel arr) {
         running = false;
-        selectedAlgorithm = new BubbleSort(arr); // Select initial algorithm
+        Settings.selectedAlgorithm = new BubbleSort(arr); // Select initial algorithm
         Color BACKGROUND_COLOR = Color.GRAY;
         setBackground(BACKGROUND_COLOR);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -44,7 +39,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                     @Override
                     protected Void doInBackground() {
                         System.err.println("SwingWorker initialized.");
-                        SortingAlgorithm algorithm = selectedAlgorithm;
+                        SortingAlgorithm algorithm = Settings.selectedAlgorithm;
                         algorithm.run();
                         return null;
                     }
@@ -110,26 +105,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
             arr.reDraw();
         });
 
-        // Add Array accesses counter
-        arrayAccesses = new JLabel();
-        arrayAccesses.setText("Array accesses: " + Settings.arrayAccesses);
-        arrayAccesses.setForeground(Color.BLACK);
-
-        // Add Array comparisons counter
-        arrayComparisons = new JLabel();
-        arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
-        arrayComparisons.setForeground(Color.BLACK);
-
-        // Add Array bar counter
-        barCounter = new JLabel();
-        barCounter.setText("Number of elements: " + Settings.barCounter);
-        barCounter.setForeground(Color.BLACK);
-
-        // Algorithm time complexity
-        timeComplexity = new JLabel();
-        timeComplexity.setText("Time Complexity: " + selectedAlgorithm.getTimeComplexity());
-        timeComplexity.setForeground(Color.BLACK);
-
         // Algorithm selector dropdown menu
         ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
         algorithms.add(new BubbleSort(arr));
@@ -147,8 +122,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         algoSelector.setSelectedIndex(0);
         algoSelector.addActionListener(e -> {
             System.err.println("Selected: " + boxStrings[algoSelector.getSelectedIndex()]);
-            selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
-            timeComplexity.setText("Time Complexity: " + selectedAlgorithm.getTimeComplexity());
+            Settings.selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
         });
         algoSelector.addPopupMenuListener(this);
 
@@ -161,10 +135,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         this.add(shuffleButton);
         this.add(addBar);
         this.add(removeBar);
-        this.add(arrayAccesses);
-        this.add(arrayComparisons);
-        this.add(barCounter);
-        this.add(timeComplexity);
     }
 
     @Override
@@ -182,9 +152,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        arrayAccesses.setText("Array accesses: " + Settings.arrayAccesses);
-        arrayComparisons.setText("Array comparisons: " + Settings.arrayComparisons);
-        barCounter.setText("Number of elements: " + Settings.barCounter);
     }
 
 }

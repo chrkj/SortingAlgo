@@ -17,7 +17,7 @@ public class ArrayPanel extends JPanel {
         this.frame = frame;
         this.dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-        setBackground(Color.LIGHT_GRAY);
+        setBackground(Settings.ARRAY_PANEL_COLOR);
 
         // Populate dataBars with JBarComponents of random height
         for (int i = 0; i < Settings.INITIAL_RECT_COUNT; i++) {
@@ -78,6 +78,12 @@ public class ArrayPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         reDraw();
+        g.drawString("Current algorithm: " + Settings.selectedAlgorithm.getAlgorithmName(), 515, 20);
+        g.drawString("Time Complexity: " + Settings.selectedAlgorithm.getTimeComplexity(), 515, 40);
+        g.drawString("Array accesses: " + Settings.arrayAccesses, 515, 60);
+        g.drawString("Array comparisons: " + Settings.arrayComparisons, 515, 80);
+        g.drawString("Number of elements: " + Settings.barCounter, 515, 100);
+        g.drawString("Speed: " + Settings.speed + " ms", 515, 120);
     }
 
     public void done() {
