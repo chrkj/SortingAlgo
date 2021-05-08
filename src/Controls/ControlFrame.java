@@ -1,11 +1,13 @@
 package Controls;
 
 import Resourses.*;
+
 import javax.swing.*;
 
 public class ControlFrame extends JFrame {
 
-    public ControlFrame(String title) {
+    public ControlFrame(String title)
+    {
         super(title);
 
         ArrayPanel dataGUI = new ArrayPanel(this);
@@ -17,7 +19,8 @@ public class ControlFrame extends JFrame {
         setVisible(true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) { }

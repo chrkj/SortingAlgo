@@ -4,12 +4,14 @@ import Resourses.ArrayPanel;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(ArrayPanel arr) {
+    public BubbleSort(ArrayPanel arr)
+    {
         super(arr);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         int n = arr.dataBars.size();
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
@@ -19,16 +21,18 @@ public class BubbleSort extends SortingAlgorithm {
                 }
             }
         }
-        arr.done();
+        arr.finishAnimation();
     }
 
     @Override
-    public String getAlgorithmName() {
+    public String getAlgorithmName()
+    {
         return "Bubble Sort";
     }
 
     @Override
-    public String getTimeComplexity() {
+    public String getTimeComplexity()
+    {
         return "O(n^2)";
     }
 

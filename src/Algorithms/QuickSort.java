@@ -3,24 +3,28 @@ package Algorithms;
 import Resourses.ArrayPanel;
 
 public class QuickSort extends SortingAlgorithm {
-    public QuickSort(ArrayPanel arr) {
+    public QuickSort(ArrayPanel arr)
+    {
         super(arr);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         sort(0, arr.dataBars.size() - 1);
-        arr.done();
+        arr.finishAnimation();
     }
 
-    private void sort(int lo, int hi) {
+    private void sort(int lo, int hi)
+    {
         if (hi <= lo) return;
         int j = partition(lo, hi);
         sort(lo, j - 1);
         sort(j + 1, hi);
     }
 
-    private int partition(int lo, int hi) {
+    private int partition(int lo, int hi)
+    {
         int i = lo;
         int j = hi + 1;
         int v = arr.getValue(lo);
@@ -43,12 +47,14 @@ public class QuickSort extends SortingAlgorithm {
     }
 
     @Override
-    public String getAlgorithmName() {
+    public String getAlgorithmName()
+    {
         return "Quick Sort";
     }
 
     @Override
-    public String getTimeComplexity() {
+    public String getTimeComplexity()
+    {
         return "O(n log(n))";
     }
 }

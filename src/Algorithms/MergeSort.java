@@ -7,19 +7,22 @@ import Resourses.ArrayPanel;
 import java.util.ArrayList;
 
 public class MergeSort extends SortingAlgorithm {
-    public MergeSort(ArrayPanel arr) {
+    public MergeSort(ArrayPanel arr)
+    {
         super(arr);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         System.out.println("Merge start");
         ArrayList<JBarComponent> aux = new ArrayList<>(arr.dataBars);
         sort(arr.dataBars, aux, 0, arr.dataBars.size() - 1);
         System.out.println("Done");
     }
 
-    private void sort(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int hi) {
+    private void sort(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int hi)
+    {
         if (hi <= lo) {
             return;
         }
@@ -29,7 +32,8 @@ public class MergeSort extends SortingAlgorithm {
         merge(a, aux, lo, mid, hi);
     }
 
-    private void merge(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int mid, int hi) {
+    private void merge(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int mid, int hi)
+    {
         arr.delay(Settings.speed);
         for (int k = lo; k <= hi; k++) {
             aux.set(k, a.get(k));
@@ -41,7 +45,7 @@ public class MergeSort extends SortingAlgorithm {
                 a.set(k, aux.get(j++));
             } else if (j > hi) {
                 a.set(k, aux.get(i++));
-            } else if (aux.get(j).getValue() <  aux.get(i).getValue()) {
+            } else if (aux.get(j).getValue() < aux.get(i).getValue()) {
                 a.set(k, aux.get(j++));
             } else {
                 a.set(k, aux.get(i++));
@@ -50,12 +54,14 @@ public class MergeSort extends SortingAlgorithm {
     }
 
     @Override
-    public String getAlgorithmName() {
+    public String getAlgorithmName()
+    {
         return "Merge Sort";
     }
 
     @Override
-    public String getTimeComplexity() {
+    public String getTimeComplexity()
+    {
         return "O(n log(n))";
     }
 

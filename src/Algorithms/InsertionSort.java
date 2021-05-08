@@ -5,12 +5,14 @@ import Resourses.ArrayPanel;
 import java.awt.*;
 
 public class InsertionSort extends SortingAlgorithm {
-    public InsertionSort(ArrayPanel arr) {
+    public InsertionSort(ArrayPanel arr)
+    {
         super(arr);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         int n = arr.dataBars.size();
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0; j--) {
@@ -26,16 +28,18 @@ public class InsertionSort extends SortingAlgorithm {
             }
         }
         arr.setColor(n - 1, Color.BLACK);
-        arr.done();
+        arr.finishAnimation();
     }
 
     @Override
-    public String getAlgorithmName() {
+    public String getAlgorithmName()
+    {
         return "Insertion Sort";
     }
 
     @Override
-    public String getTimeComplexity() {
+    public String getTimeComplexity()
+    {
         return "O(n^2)";
     }
 }

@@ -4,17 +4,20 @@ import Resourses.ArrayPanel;
 
 public class HeapSort extends SortingAlgorithm {
 
-    public HeapSort(ArrayPanel arr) {
+    public HeapSort(ArrayPanel arr)
+    {
         super(arr);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         sort();
-        arr.done();
+        arr.finishAnimation();
     }
 
-    private void sort() {
+    private void sort()
+    {
         int n = arr.dataBars.size();
         // Heap phase
         for (int k = n / 2; k >= 1; k--) {
@@ -28,7 +31,8 @@ public class HeapSort extends SortingAlgorithm {
         }
     }
 
-    private void sink(int k, int n) {
+    private void sink(int k, int n)
+    {
         while (2 * k <= n) {
             int j = 2 * k;
             if (j < n && (arr.getValue(j - 1) < arr.getValue(j))) {
@@ -45,12 +49,14 @@ public class HeapSort extends SortingAlgorithm {
     }
 
     @Override
-    public String getAlgorithmName() {
+    public String getAlgorithmName()
+    {
         return "Heap Sort";
     }
 
     @Override
-    public String getTimeComplexity() {
+    public String getTimeComplexity()
+    {
         return "O(n log(n))";
     }
 }

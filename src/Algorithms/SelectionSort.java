@@ -6,12 +6,14 @@ import java.awt.*;
 
 public class SelectionSort extends SortingAlgorithm {
 
-    public SelectionSort(ArrayPanel arr) {
+    public SelectionSort(ArrayPanel arr)
+    {
         super(arr);
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         int n = arr.dataBars.size();
         for (int i = 0; i < n; i++) {
             arr.setColor(i, Color.YELLOW);
@@ -25,16 +27,18 @@ public class SelectionSort extends SortingAlgorithm {
             }
             arr.swap(i, min);
         }
-        arr.done();
+        arr.finishAnimation();
     }
 
     @Override
-    public String getAlgorithmName() {
+    public String getAlgorithmName()
+    {
         return "Selection Sort";
     }
 
     @Override
-    public String getTimeComplexity() {
+    public String getTimeComplexity()
+    {
         return "O(n^2)";
     }
 }
