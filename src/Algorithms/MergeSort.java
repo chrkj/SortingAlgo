@@ -2,13 +2,12 @@ package Algorithms;
 
 import Resourses.JBarComponent;
 import Resourses.Settings;
-import Resourses.arrayPanel;
+import Resourses.ArrayPanel;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class MergeSort extends SortingAlgorithm {
-    public MergeSort(arrayPanel arr) {
+    public MergeSort(ArrayPanel arr) {
         super(arr);
     }
 

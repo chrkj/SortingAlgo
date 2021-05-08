@@ -8,19 +8,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class arrayPanel extends JPanel {
+public class ArrayPanel extends JPanel {
 
     public final ControlFrame frame;
     public final ArrayList<JBarComponent> dataBars;
 
-    public arrayPanel(ControlFrame frame) {
+    public ArrayPanel(ControlFrame frame) {
         this.frame = frame;
         this.dataBars = new ArrayList<>(Settings.INITIAL_RECT_COUNT);
         setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+
+        // Populate dataBars with JBarComponents of random height
         for (int i = 0; i < Settings.INITIAL_RECT_COUNT; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            this.dataBars.add(new JBarComponent(randomNum));
+            dataBars.add(new JBarComponent(randomNum, i));
         }
+
+        // Add JBarComponents and spacers to the ArrayPanel
         add(new JSpacerComponent());
         for (JBarComponent bar : this.dataBars) {
             add(bar);
@@ -62,6 +66,8 @@ public class arrayPanel extends JPanel {
         setColor(secondIndex, Color.GREEN);
         Settings.arrayAccesses++;
         Collections.swap(dataBars, firstIndex, secondIndex);
+        dataBars.get(firstIndex).setIndex(dataBars);
+        dataBars.get(secondIndex).setIndex(dataBars);
         delay(Settings.speed);
         setColor(firstIndex, Color.BLACK);
         setColor(secondIndex, Color.BLACK);

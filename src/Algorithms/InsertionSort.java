@@ -1,11 +1,11 @@
 package Algorithms;
 
-import Resourses.arrayPanel;
+import Resourses.ArrayPanel;
 
 import java.awt.*;
 
 public class InsertionSort extends SortingAlgorithm {
-    public InsertionSort(arrayPanel arr) {
+    public InsertionSort(ArrayPanel arr) {
         super(arr);
     }
 

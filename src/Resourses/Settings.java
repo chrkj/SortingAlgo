@@ -3,7 +3,7 @@ package Resourses;
 public class Settings {
     // Bars
     public static final int BAR_SPACING = 3;
-    public static final int MIN_BAR_HEIGHT = 20;
+    public static final int MIN_BAR_HEIGHT = 30;
     public static final int MAX_BAR_HEIGHT = 500;
     public static final int INITIAL_RECT_COUNT = 15;
 

@@ -1,10 +1,10 @@
 package Algorithms;
 
-import Resourses.arrayPanel;
+import Resourses.ArrayPanel;
 
 public class HeapSort extends SortingAlgorithm {
 
-    public HeapSort(arrayPanel arr) {
+    public HeapSort(ArrayPanel arr) {
         super(arr);
     }
 

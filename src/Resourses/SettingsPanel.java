@@ -10,7 +10,7 @@ import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class settingsPanel extends JPanel implements PopupMenuListener {
+public class SettingsPanel extends JPanel implements PopupMenuListener {
 
     private boolean running;
     private SortingAlgorithm selectedAlgorithm;
@@ -20,11 +20,11 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
     private final JLabel barCounter;
     private final JLabel timeComplexity;
 
-    public settingsPanel(arrayPanel arr) {
+    public SettingsPanel(ArrayPanel arr) {
         running = false;
         selectedAlgorithm = new BubbleSort(arr);
-        this.setBackground(Color.LIGHT_GRAY);
-        this.setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
+        setBackground(Color.LIGHT_GRAY);
+        setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
 
         ////
         // Initializing settings components
@@ -89,7 +89,7 @@ public class settingsPanel extends JPanel implements PopupMenuListener {
             Settings.barCounter++;
             System.err.println("addButton pressed!");
             int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            JBarComponent tmpBar = new JBarComponent(randomHeight);
+            JBarComponent tmpBar = new JBarComponent(randomHeight, arr.dataBars.size());
             arr.dataBars.add(tmpBar);
             repaint();
             arr.reDraw();

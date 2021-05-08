@@ -1,30 +1,41 @@
 package Resourses;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class JBarComponent extends JPanel {
 
-    private final JLabel dataLabel;
+    private final JLabel dataValueLabel;
+    private final JLabel dataIndexLabel;
 
-    public JBarComponent(int height) {
+    public JBarComponent(int height, int index) {
         // Setup dimensions of the bar
-        this.setBackground(Color.BLACK);
-        this.setMinimumSize(new Dimension(20, 20));
-        this.setMaximumSize(new Dimension(1000, height));
-        this.setPreferredSize(new Dimension(50, height));
-        this.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        setBackground(Color.BLACK);
+        setMinimumSize(new Dimension(20, 20));
+        setMaximumSize(new Dimension(1000, height));
+        setPreferredSize(new Dimension(50, height));
+        setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        setLayout(new BorderLayout());
 
-        // Add the data label to the bar
-        this.dataLabel = new JLabel();
-        dataLabel.setText(String.valueOf(height));
-        dataLabel.setForeground(Color.WHITE);
-        this.add(dataLabel);
+        // Add the data value label to the bar
+        dataValueLabel = new JLabel(String.valueOf(height), JLabel.CENTER);
+        dataValueLabel.setForeground(Color.WHITE);
+        this.add(dataValueLabel, BorderLayout.NORTH);
+
+        // Add the data index label to the bar
+        dataIndexLabel = new JLabel(String.valueOf(index), JLabel.CENTER);
+        dataIndexLabel.setForeground(Color.GRAY);
+        this.add(dataIndexLabel, BorderLayout.SOUTH);
     }
 
     public void setHeight(int height) {
-        dataLabel.setText(String.valueOf(height)); // Update the data label
+        dataValueLabel.setText(String.valueOf(height)); // Update the data label
         this.setMaximumSize(new Dimension(1000, height));
+    }
+
+    public void setIndex(ArrayList<JBarComponent> arr) {
+        dataIndexLabel.setText(String.valueOf(arr.indexOf(this)));
     }
 
     public void setBarColor(Color color) {
@@ -32,7 +43,7 @@ public class JBarComponent extends JPanel {
     }
 
     public void setLabelColor(Color color) {
-        this.dataLabel.setForeground(color);
+        this.dataValueLabel.setForeground(color);
     }
 
 }

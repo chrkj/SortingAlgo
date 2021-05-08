@@ -1,12 +1,12 @@
 package Algorithms;
 
-import Resourses.arrayPanel;
+import Resourses.ArrayPanel;
 
 import java.awt.*;
 
 public class SelectionSort extends SortingAlgorithm {
 
-    public SelectionSort(arrayPanel arr) {
+    public SelectionSort(ArrayPanel arr) {
         super(arr);
     }
 

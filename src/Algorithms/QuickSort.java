@@ -1,9 +1,9 @@
 package Algorithms;
 
-import Resourses.arrayPanel;
+import Resourses.ArrayPanel;
 
 public class QuickSort extends SortingAlgorithm {
-    public QuickSort(arrayPanel arr) {
+    public QuickSort(ArrayPanel arr) {
         super(arr);
     }
 

@@ -8,8 +8,8 @@ public class ControlFrame extends JFrame {
     public ControlFrame(String title) {
         super(title);
 
-        arrayPanel dataGUI = new arrayPanel(this);
-        settingsPanel settings = new settingsPanel(dataGUI);
+        ArrayPanel dataGUI = new ArrayPanel(this);
+        SettingsPanel settings = new SettingsPanel(dataGUI);
         this.add(settings);
         this.add(dataGUI);
 

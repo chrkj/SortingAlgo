@@ -1,10 +1,10 @@
 package Algorithms;
 
-import Resourses.arrayPanel;
+import Resourses.ArrayPanel;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(arrayPanel arr) {
+    public BubbleSort(ArrayPanel arr) {
         super(arr);
     }
 
