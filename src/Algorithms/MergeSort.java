@@ -41,7 +41,7 @@ public class MergeSort extends SortingAlgorithm {
                 a.set(k, aux.get(j++));
             } else if (j > hi) {
                 a.set(k, aux.get(i++));
-            } else if (aux.get(j).getHeight() <  aux.get(i).getHeight()) {
+            } else if (aux.get(j).getValue() <  aux.get(i).getValue()) {
                 a.set(k, aux.get(j++));
             } else {
                 a.set(k, aux.get(i++));
