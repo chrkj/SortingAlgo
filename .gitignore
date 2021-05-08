@@ -1,12 +1,16 @@
 # Default ignored files
 /shelf/
 /.idea/workspace.xml
+
 # Datasource local storage ignored files
 /../../../../../../../:\Users\Crell\Documents\Repos\SortingAlgo\.idea/dataSources/
 /dataSources.local.xml
+
 # Editor-based HTTP Client requests
 /httpRequests/
 
-.idea
-SortingAlgo.iml
+# IDE / Build
 out
+.idea
+META-INF
+SortingAlgo.iml
