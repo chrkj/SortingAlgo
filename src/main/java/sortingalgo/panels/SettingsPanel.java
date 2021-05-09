@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SettingsPanel extends JPanel implements PopupMenuListener {
 
+    private final Button runButton;
     private SwingWorker<Void, Void> swingWorker;
 
     public SettingsPanel(ArrayPanel sortArray)
@@ -27,7 +28,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         ////
 
         // Run button
-        Button runButton = new Button();
+        runButton = new Button();
         runButton.setLabel("Run");
         runButton.addActionListener(e ->
         {
@@ -48,7 +49,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                 Settings.arrayAccesses = 0;
                 Settings.arrayComparisons = 0;
                 swingWorker.execute();
-                runButton.setLabel("Stop");
             } else {
                 System.err.println("{STOP}");
                 Settings.isRunning = false;
@@ -56,7 +56,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                     swingWorker.notifyAll();
                     sortArray.reset();
                 }
-                runButton.setLabel("Run");
             }
         });
 
@@ -149,6 +148,17 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         this.add(shuffleButton);
         this.add(addBar);
         this.add(removeBar);
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        if(!Settings.isRunning) {
+            runButton.setLabel("Run");
+        } else {
+            runButton.setLabel("Stop");
+        }
     }
 
     @Override
