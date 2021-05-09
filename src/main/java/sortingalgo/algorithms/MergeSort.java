@@ -7,6 +7,7 @@ import sortingalgo.util.Settings;
 import java.util.ArrayList;
 
 public class MergeSort extends SortingAlgorithm {
+
     public MergeSort(ArrayPanel arr)
     {
         super(arr);
@@ -15,10 +16,8 @@ public class MergeSort extends SortingAlgorithm {
     @Override
     public void run()
     {
-        System.out.println("Merge start");
-        ArrayList<SubPanel> aux = new ArrayList<>(arr.dataBars);
-        sort(arr.dataBars, aux, 0, arr.dataBars.size() - 1);
-        System.out.println("Done");
+        ArrayList<SubPanel> aux = new ArrayList<>(arr.sortArray);
+        sort(arr.sortArray, aux, 0, arr.sortArray.size() - 1);
     }
 
     private void sort(ArrayList<SubPanel> a, ArrayList<SubPanel> aux, int lo, int hi)

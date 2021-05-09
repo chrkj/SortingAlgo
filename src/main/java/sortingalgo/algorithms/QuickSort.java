@@ -11,7 +11,7 @@ public class QuickSort extends SortingAlgorithm {
     @Override
     public void run()
     {
-        sort(0, arr.dataBars.size() - 1);
+        sort(0, arr.sortArray.size() - 1);
         arr.finishAnimation();
     }
 

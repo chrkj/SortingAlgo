@@ -12,7 +12,7 @@ public class BubbleSort extends SortingAlgorithm {
     @Override
     public void run()
     {
-        int n = arr.dataBars.size();
+        int n = arr.sortArray.size();
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
                 arr.compare(j, j - 1);

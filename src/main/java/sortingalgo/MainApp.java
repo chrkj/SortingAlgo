@@ -7,7 +7,6 @@ import sortingalgo.panels.SettingsPanel;
 import javax.swing.*;
 
 public class MainApp {
-
     private final JFrame window;
 
     public MainApp()

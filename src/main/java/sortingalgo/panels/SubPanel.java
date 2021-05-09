@@ -46,12 +46,24 @@ public class SubPanel extends JPanel {
 
     public void setBarColor(Color color)
     {
+        if (!(color == Color.BLACK)) {
+            setIndexLabelColor(Color.BLACK);
+            setValueLabelColor(Color.BLACK);
+        } else {
+            setIndexLabelColor(Color.RED);
+            setValueLabelColor(Color.WHITE);
+        }
         column.setBackground(color);
     }
 
-    public void setLabelColor(Color color)
+    public void setValueLabelColor(Color color)
     {
-        this.valueLabel.setForeground(color);
+        valueLabel.setForeground(color);
+    }
+
+    public void setIndexLabelColor(Color color)
+    {
+        indexLabel.setForeground(color);
     }
 
     public int getValue()

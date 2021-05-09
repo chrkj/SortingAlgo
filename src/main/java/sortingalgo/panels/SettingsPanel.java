@@ -13,13 +13,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SettingsPanel extends JPanel implements PopupMenuListener {
 
-    private boolean running;
     private SwingWorker<Void, Void> swingWorker;
 
-    public SettingsPanel(ArrayPanel arr)
+    public SettingsPanel(ArrayPanel sortArray)
     {
-        running = false;
-        Settings.selectedAlgorithm = new BubbleSort(arr); // Select initial algorithm
+        Settings.selectedAlgorithm = new BubbleSort(sortArray); // Select initial algorithm
         setBackground(Settings.SETTINGS_PANEL_COLOR);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
@@ -34,9 +32,9 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         runButton.addActionListener(e ->
         {
             System.err.println("RunButton pressed!");
-            if (!running) {
+            if (!Settings.isRunning) {
                 System.err.println("{RUN}");
-                running = true;
+                Settings.isRunning = true;
                 swingWorker = new SwingWorker<>() {
                     @Override
                     protected Void doInBackground()
@@ -53,9 +51,11 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                 runButton.setLabel("Stop");
             } else {
                 System.err.println("{STOP}");
-                running = false;
-                swingWorker.cancel(true);
-                System.err.println("SwingWorker canceled");
+                Settings.isRunning = false;
+                synchronized (swingWorker) {
+                    swingWorker.notifyAll();
+                    sortArray.reset();
+                }
                 runButton.setLabel("Run");
             }
         });
@@ -66,7 +66,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         shuffleButton.addActionListener(e ->
         {
             System.err.println("shuffleButton pressed!");
-            arr.shuffle();
+            sortArray.shuffle();
         });
 
         // Run speed slider
@@ -92,8 +92,8 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
             Settings.barCounter++;
             System.err.println("addButton pressed!");
             int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            SubPanel tmpBar = new SubPanel(randomHeight, arr.dataBars.size());
-            arr.dataBars.add(tmpBar);
+            SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
+            sortArray.sortArray.add(tmpBar);
             repaint();
         });
 
@@ -106,20 +106,20 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
             if (Settings.barCounter > 2) {
                 Settings.barCounter--;
             }
-            if (arr.dataBars.size() > 2) {
-                arr.dataBars.remove(arr.dataBars.size() - 1);
+            if (sortArray.sortArray.size() > 2) {
+                sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
             }
             repaint();
         });
 
         // Algorithm selector dropdown menu
         ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
-        algorithms.add(new BubbleSort(arr));
-        algorithms.add(new SelectionSort(arr));
-        algorithms.add(new InsertionSort(arr));
-        algorithms.add(new MergeSort(arr));
-        algorithms.add(new HeapSort(arr));
-        algorithms.add(new QuickSort(arr));
+        algorithms.add(new BubbleSort(sortArray));
+        algorithms.add(new SelectionSort(sortArray));
+        algorithms.add(new InsertionSort(sortArray));
+        algorithms.add(new MergeSort(sortArray));
+        algorithms.add(new HeapSort(sortArray));
+        algorithms.add(new QuickSort(sortArray));
 
         String[] boxStrings = new String[algorithms.size()];
         for (int i = 0; i < algorithms.size(); i++) {

@@ -18,7 +18,7 @@ public class HeapSort extends SortingAlgorithm {
 
     private void sort()
     {
-        int n = arr.dataBars.size();
+        int n = arr.sortArray.size();
         // Heap phase
         for (int k = n / 2; k >= 1; k--) {
             sink(k, n);

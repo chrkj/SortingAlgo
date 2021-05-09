@@ -14,7 +14,7 @@ public class SelectionSort extends SortingAlgorithm {
     @Override
     public void run()
     {
-        int n = arr.dataBars.size();
+        int n = arr.sortArray.size();
         for (int i = 0; i < n; i++) {
             arr.setColor(i, Color.YELLOW);
             int min = i;

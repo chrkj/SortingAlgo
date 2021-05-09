@@ -1,25 +1,21 @@
 package sortingalgo.panels;
 
 import sortingalgo.util.*;
-import sortingalgo.MainApp;
 
 import java.awt.*;
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ArrayPanel extends JPanel {
 
     public final JFrame frame;
-    public final ArrayList<SubPanel> dataBars;
+    public final ArrayList<SubPanel> sortArray;
 
     public ArrayPanel(JFrame frame)
     {
         this.frame = frame;
-        this.dataBars = new ArrayList<>(Settings.INITIAL_BAR_COUNT);
+        this.sortArray = new ArrayList<>(Settings.INITIAL_BAR_COUNT);
 
         RelativeLayout layout = new RelativeLayout(RelativeLayout.X_AXIS, Settings.BAR_SPACING);
         layout.setFill(true);
@@ -32,14 +28,13 @@ public class ArrayPanel extends JPanel {
         // Populate dataBars with JBarComponents of random height
         for (int i = 0; i < Settings.INITIAL_BAR_COUNT; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            dataBars.add(new SubPanel(randomNum, i));
+            sortArray.add(new SubPanel(randomNum, i));
         }
-
     }
 
     public void shuffle()
     {
-        for (SubPanel bar : dataBars) {
+        for (SubPanel bar : sortArray) {
             bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1));
         }
     }
@@ -48,8 +43,8 @@ public class ArrayPanel extends JPanel {
     public void reDraw()
     {
         removeAll();
-        for (SubPanel bar : dataBars) {
-            add(bar, 1f);
+        for (SubPanel element : sortArray) {
+            add(element, 1f);
         }
         validate();
         repaint();
@@ -60,7 +55,11 @@ public class ArrayPanel extends JPanel {
     {
         repaint();
         try {
-            Thread.sleep(ms);
+            if (!Settings.isRunning) {
+                Thread.currentThread().wait();
+            } else {
+                Thread.sleep(ms);
+            }
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -71,9 +70,9 @@ public class ArrayPanel extends JPanel {
         setColor(firstIndex, Color.GREEN);
         setColor(secondIndex, Color.GREEN);
         Settings.arrayAccesses++;
-        Collections.swap(dataBars, firstIndex, secondIndex);
-        dataBars.get(firstIndex).setIndex(dataBars);
-        dataBars.get(secondIndex).setIndex(dataBars);
+        Collections.swap(sortArray, firstIndex, secondIndex);
+        sortArray.get(firstIndex).setIndex(sortArray);
+        sortArray.get(secondIndex).setIndex(sortArray);
         delay(Settings.speed);
         setColor(firstIndex, Color.BLACK);
         setColor(secondIndex, Color.BLACK);
@@ -103,11 +102,12 @@ public class ArrayPanel extends JPanel {
 
     public void finishAnimation()
     {
-        for (int i = 0; i < dataBars.size(); i++) {
+        for (int i = 0; i < sortArray.size(); i++) {
             setColor(i, Color.GREEN);
             delay(25);
             setColor(i, Color.BLACK);
         }
+        Settings.isRunning = false;
     }
 
     public void compare(int firstIndex, int secondIndex)
@@ -122,19 +122,22 @@ public class ArrayPanel extends JPanel {
 
     public void setColor(int index, Color color)
     {
-        dataBars.get(index).setBarColor(color);
-        // TODO: Move this logic to JBarComponent
-        if (color == Color.YELLOW || color == Color.GREEN) {
-            dataBars.get(index).setLabelColor(Color.BLACK);
-        } else {
-            dataBars.get(index).setLabelColor(Color.WHITE);
-        }
+        sortArray.get(index).setBarColor(color);
         delay(1);
     }
 
     public int getValue(int index)
     {
-        return dataBars.get(index).getValue();
+        return sortArray.get(index).getValue();
+    }
+
+    public void reset()
+    {
+        for (SubPanel element : sortArray) {
+            element.setBarColor(Color.BLACK);
+        }
+        Settings.arrayAccesses = 0;
+        Settings.arrayComparisons = 0;
     }
 
 }

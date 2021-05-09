@@ -13,7 +13,7 @@ public class InsertionSort extends SortingAlgorithm {
     @Override
     public void run()
     {
-        int n = arr.dataBars.size();
+        int n = arr.sortArray.size();
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0; j--) {
                 arr.setColor(i, Color.YELLOW);

@@ -7,7 +7,7 @@ The bars
 - ✅ Add index label to bars
 - ✅ Fix spacing problems when adding multiple new JBarComponents
 - ✅ Add min constrain to the amount of bars
-- ⬜ Dynamic coloring of the index values
+- ✅ Dynamic coloring of the index values
 - ⬜ Add functionality to specify bar values
 - ⬜ Add Shuffle worst / best case based on algorithm
 - ⬜ Add gradle as a build project 
@@ -20,10 +20,10 @@ The settings GUI
 - ✅ Fix speed slider values
 - ✅ Add array accesses /- compare counter
 - ✅ Add bar counter field
+- ✅ Make "Stop" not sort the rest of the array
 - ⬜ Organize settings panel
 - ⬜ Make pause / step button and functionality
 - ⬜ Make some settings un-interactive while running
-- ⬜ Make "Stop" not sort the rest of the array
 
 The algorithms
 - ✅ Add Bubblesort
