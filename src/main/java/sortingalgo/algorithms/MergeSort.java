@@ -18,6 +18,7 @@ public class MergeSort extends SortingAlgorithm {
     {
         ArrayList<SubPanel> aux = new ArrayList<>(arr.sortArray);
         sort(arr.sortArray, aux, 0, arr.sortArray.size() - 1);
+        arr.finishAnimation();
     }
 
     private void sort(ArrayList<SubPanel> a, ArrayList<SubPanel> aux, int lo, int hi)
