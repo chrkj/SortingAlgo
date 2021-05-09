@@ -1,6 +1,6 @@
-package Resourses;
+package sortingalgo.util;
 
-import Algorithms.SortingAlgorithm;
+import sortingalgo.algorithms.SortingAlgorithm;
 
 import java.awt.*;
 

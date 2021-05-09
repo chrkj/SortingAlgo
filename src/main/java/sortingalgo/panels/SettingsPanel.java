@@ -1,6 +1,7 @@
-package Resourses;
+package sortingalgo.panels;
 
-import Algorithms.*;
+import sortingalgo.algorithms.*;
+import sortingalgo.util.Settings;
 
 import java.awt.*;
 import javax.swing.*;
@@ -91,7 +92,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
             Settings.barCounter++;
             System.err.println("addButton pressed!");
             int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            JBarComponent tmpBar = new JBarComponent(randomHeight, arr.dataBars.size());
+            SubPanel tmpBar = new SubPanel(randomHeight, arr.dataBars.size());
             arr.dataBars.add(tmpBar);
             repaint();
         });

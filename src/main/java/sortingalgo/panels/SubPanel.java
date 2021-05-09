@@ -1,16 +1,16 @@
-package Resourses;
+package sortingalgo.panels;
 
 import java.awt.*;
-import java.util.ArrayList;
 import javax.swing.*;
+import java.util.ArrayList;
 
-public class JBarComponent extends JPanel {
+public class SubPanel extends JPanel {
 
     private final JPanel column;
     private final JLabel valueLabel;
     private final JLabel indexLabel;
 
-    public JBarComponent(int height, int index)
+    public SubPanel(int height, int index)
     {
         setOpaque(false);
         setLayout(new BorderLayout());
@@ -39,7 +39,7 @@ public class JBarComponent extends JPanel {
         column.setPreferredSize(new Dimension(20, height));
     }
 
-    public void setIndex(ArrayList<JBarComponent> arr)
+    public void setIndex(ArrayList<SubPanel> arr)
     {
         indexLabel.setText(String.valueOf(arr.indexOf(this)));
     }

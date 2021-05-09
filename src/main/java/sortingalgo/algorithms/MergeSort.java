@@ -1,8 +1,8 @@
-package Algorithms;
+package sortingalgo.algorithms;
 
-import Resourses.JBarComponent;
-import Resourses.Settings;
-import Resourses.ArrayPanel;
+import sortingalgo.panels.ArrayPanel;
+import sortingalgo.panels.SubPanel;
+import sortingalgo.util.Settings;
 
 import java.util.ArrayList;
 
@@ -16,12 +16,12 @@ public class MergeSort extends SortingAlgorithm {
     public void run()
     {
         System.out.println("Merge start");
-        ArrayList<JBarComponent> aux = new ArrayList<>(arr.dataBars);
+        ArrayList<SubPanel> aux = new ArrayList<>(arr.dataBars);
         sort(arr.dataBars, aux, 0, arr.dataBars.size() - 1);
         System.out.println("Done");
     }
 
-    private void sort(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int hi)
+    private void sort(ArrayList<SubPanel> a, ArrayList<SubPanel> aux, int lo, int hi)
     {
         if (hi <= lo) {
             return;
@@ -32,7 +32,7 @@ public class MergeSort extends SortingAlgorithm {
         merge(a, aux, lo, mid, hi);
     }
 
-    private void merge(ArrayList<JBarComponent> a, ArrayList<JBarComponent> aux, int lo, int mid, int hi)
+    private void merge(ArrayList<SubPanel> a, ArrayList<SubPanel> aux, int lo, int mid, int hi)
     {
         arr.delay(Settings.speed);
         for (int k = lo; k <= hi; k++) {

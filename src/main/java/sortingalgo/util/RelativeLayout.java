@@ -1,4 +1,4 @@
-package Resourses;
+package sortingalgo.util;
 
 import java.awt.*;
 import java.util.*;

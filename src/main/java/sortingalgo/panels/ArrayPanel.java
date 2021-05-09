@@ -1,6 +1,7 @@
-package Resourses;
+package sortingalgo.panels;
 
-import Controls.ControlFrame;
+import sortingalgo.util.*;
+import sortingalgo.MainApp;
 
 import java.awt.*;
 import javax.swing.*;
@@ -12,10 +13,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class ArrayPanel extends JPanel {
 
-    public final ControlFrame frame;
-    public final ArrayList<JBarComponent> dataBars;
+    public final JFrame frame;
+    public final ArrayList<SubPanel> dataBars;
 
-    public ArrayPanel(ControlFrame frame)
+    public ArrayPanel(JFrame frame)
     {
         this.frame = frame;
         this.dataBars = new ArrayList<>(Settings.INITIAL_BAR_COUNT);
@@ -31,14 +32,14 @@ public class ArrayPanel extends JPanel {
         // Populate dataBars with JBarComponents of random height
         for (int i = 0; i < Settings.INITIAL_BAR_COUNT; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            dataBars.add(new JBarComponent(randomNum, i));
+            dataBars.add(new SubPanel(randomNum, i));
         }
 
     }
 
     public void shuffle()
     {
-        for (JBarComponent bar : dataBars) {
+        for (SubPanel bar : dataBars) {
             bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1));
         }
     }
@@ -47,7 +48,7 @@ public class ArrayPanel extends JPanel {
     public void reDraw()
     {
         removeAll();
-        for (JBarComponent bar : dataBars) {
+        for (SubPanel bar : dataBars) {
             add(bar, 1f);
         }
         validate();

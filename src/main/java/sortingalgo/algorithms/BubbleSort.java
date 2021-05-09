@@ -1,6 +1,6 @@
-package Algorithms;
+package sortingalgo.algorithms;
 
-import Resourses.ArrayPanel;
+import sortingalgo.panels.ArrayPanel;
 
 public class BubbleSort extends SortingAlgorithm {
 
