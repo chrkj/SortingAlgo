@@ -13,6 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SettingsPanel extends JPanel implements PopupMenuListener {
 
+    private final Button runButton;
     private SwingWorker<Void, Void> swingWorker;
 
     public SettingsPanel(ArrayPanel sortArray)
@@ -27,7 +28,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         ////
 
         // Run button
-        Button runButton = new Button();
+        runButton = new Button();
         runButton.setLabel("Run");
         runButton.addActionListener(e ->
         {
@@ -149,6 +150,15 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         this.add(shuffleButton);
         this.add(addBar);
         this.add(removeBar);
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        if(!Settings.isRunning) {
+            runButton.setLabel("Run");
+        }
     }
 
     @Override
