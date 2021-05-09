@@ -66,7 +66,9 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         shuffleButton.addActionListener(e ->
         {
             System.err.println("shuffleButton pressed!");
-            sortArray.shuffle();
+            if (!Settings.isRunning) {
+                sortArray.shuffle();
+            }
         });
 
         // Run speed slider
@@ -89,12 +91,14 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         addBar.setLabel("Add bar");
         addBar.addActionListener(e ->
         {
-            Settings.barCounter++;
             System.err.println("addButton pressed!");
-            int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
-            sortArray.sortArray.add(tmpBar);
-            repaint();
+            if (!Settings.isRunning) {
+                Settings.barCounter++;
+                int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
+                SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
+                sortArray.sortArray.add(tmpBar);
+                repaint();
+            }
         });
 
         // Remove bar from sorting array button
@@ -103,13 +107,15 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         removeBar.addActionListener(e ->
         {
             System.err.println("removeButton pressed!");
-            if (Settings.barCounter > 2) {
-                Settings.barCounter--;
+            if (!Settings.isRunning) {
+                if (Settings.barCounter > 2) {
+                    Settings.barCounter--;
+                }
+                if (sortArray.sortArray.size() > 2) {
+                    sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
+                }
+                repaint();
             }
-            if (sortArray.sortArray.size() > 2) {
-                sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
-            }
-            repaint();
         });
 
         // Algorithm selector dropdown menu

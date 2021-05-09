@@ -10,7 +10,6 @@ The bars
 - ✅ Dynamic coloring of the index values
 - ⬜ Add functionality to specify bar values
 - ⬜ Add Shuffle worst / best case based on algorithm
-- ⬜ Add gradle as a build project 
 
 The settings GUI
 - ✅ Add the settings panel
@@ -21,9 +20,9 @@ The settings GUI
 - ✅ Add array accesses /- compare counter
 - ✅ Add bar counter field
 - ✅ Make "Stop" not sort the rest of the array
+- ✅ Make some settings inactive while running
 - ⬜ Organize settings panel
 - ⬜ Make pause / step button and functionality
-- ⬜ Make some settings un-interactive while running
 
 The algorithms
 - ✅ Add Bubblesort
