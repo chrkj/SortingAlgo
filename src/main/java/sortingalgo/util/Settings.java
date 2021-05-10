@@ -35,6 +35,8 @@ public class Settings {
     public static int arrayComparisons = 0;
     public static int barCounter = INITIAL_BAR_COUNT;
     public static boolean isRunning = false;
+    public static boolean isPaused = false;
     public static SortingAlgorithm selectedAlgorithm;
+    public static Worker currentWorker;
 
 }

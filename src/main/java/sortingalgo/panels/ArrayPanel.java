@@ -56,11 +56,12 @@ public class ArrayPanel extends JPanel {
         repaint();
         try {
             if (!Settings.isRunning) {
-                Thread.currentThread().wait();
+                wait();
             } else {
                 Thread.sleep(ms);
             }
         } catch (InterruptedException ex) {
+            System.err.println("Thread interrupted");
             Thread.currentThread().interrupt();
         }
     }

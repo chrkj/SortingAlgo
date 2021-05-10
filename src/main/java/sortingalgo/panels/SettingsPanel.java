@@ -2,6 +2,7 @@ package sortingalgo.panels;
 
 import sortingalgo.algorithms.*;
 import sortingalgo.util.Settings;
+import sortingalgo.util.Worker;
 
 import java.awt.*;
 import javax.swing.*;
@@ -14,54 +15,39 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SettingsPanel extends JPanel implements PopupMenuListener {
 
     private final Button runButton;
-    private SwingWorker<Void, Void> swingWorker;
 
     public SettingsPanel(ArrayPanel sortArray)
     {
-        Settings.selectedAlgorithm = new BubbleSort(sortArray); // Select initial algorithm
         setBackground(Settings.SETTINGS_PANEL_COLOR);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
+        Settings.selectedAlgorithm = new BubbleSort(sortArray); // Select initial algorithm
 
         ////
         // Initializing settings components
         ////
 
         // Run button
-        runButton = new Button();
-        runButton.setLabel("Run");
+        runButton = new Button("Run");
         runButton.addActionListener(e ->
         {
-            System.err.println("RunButton pressed!");
+            System.err.print("RunButton pressed! ");
             if (!Settings.isRunning) {
                 System.err.println("{RUN}");
                 Settings.isRunning = true;
-                swingWorker = new SwingWorker<>() {
-                    @Override
-                    protected Void doInBackground()
-                    {
-                        System.err.println("SwingWorker initialized.");
-                        SortingAlgorithm algorithm = Settings.selectedAlgorithm;
-                        algorithm.run();
-                        return null;
-                    }
-                };
                 Settings.arrayAccesses = 0;
                 Settings.arrayComparisons = 0;
-                swingWorker.execute();
+                Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
+                Settings.currentWorker.execute();
             } else {
                 System.err.println("{STOP}");
                 Settings.isRunning = false;
-                synchronized (swingWorker) {
-                    swingWorker.notifyAll();
-                    sortArray.reset();
-                }
+                sortArray.reset();
             }
         });
 
         // Shuffle button
-        Button shuffleButton = new Button();
-        shuffleButton.setLabel("Shuffle");
+        Button shuffleButton = new Button("Shuffle");
         shuffleButton.addActionListener(e ->
         {
             System.err.println("shuffleButton pressed!");
@@ -86,8 +72,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         });
 
         // Add bar to sorting array button
-        Button addBar = new Button();
-        addBar.setLabel("Add bar");
+        Button addBar = new Button("Add bar");
         addBar.addActionListener(e ->
         {
             System.err.println("addButton pressed!");
@@ -101,8 +86,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         });
 
         // Remove bar from sorting array button
-        Button removeBar = new Button();
-        removeBar.setLabel("Remove bar");
+        Button removeBar = new Button("Remove bar");
         removeBar.addActionListener(e ->
         {
             System.err.println("removeButton pressed!");
