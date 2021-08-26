@@ -34,7 +34,7 @@ public class MergeSort extends SortingAlgorithm {
 
     private void merge(ArrayList<SubPanel> a, ArrayList<SubPanel> aux, int lo, int mid, int hi)
     {
-        arr.delay(Settings.speed);
+        arr.delay(Settings.speed.get());
         for (int k = lo; k <= hi; k++) {
             aux.set(k, a.get(k));
         }

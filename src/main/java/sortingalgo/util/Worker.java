@@ -5,7 +5,7 @@ import sortingalgo.algorithms.SortingAlgorithm;
 import javax.swing.*;
 
 public class Worker extends SwingWorker<Void, Void> {
-    private final SortingAlgorithm algorithm;
+    private SortingAlgorithm algorithm;
 
     public Worker(SortingAlgorithm algorithm) {
         super();
@@ -17,6 +17,11 @@ public class Worker extends SwingWorker<Void, Void> {
     {
         algorithm.run();
         return null;
+    }
+
+    public void setAlgorithm(SortingAlgorithm algorithm)
+    {
+        this.algorithm = algorithm;
     }
 
 }

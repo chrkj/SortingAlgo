@@ -28,22 +28,44 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         ////
 
         // Run button
+        Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
         runButton = new Button("Run");
         runButton.addActionListener(e ->
         {
             System.err.print("RunButton pressed! ");
-            if (!Settings.isRunning) {
+            if (!Settings.isRunning.get()) {
                 System.err.println("{RUN}");
-                Settings.isRunning = true;
-                Settings.arrayAccesses = 0;
-                Settings.arrayComparisons = 0;
-                Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
+                Settings.isRunning.set(true);
+                Settings.isStepping.set(false);
+                Settings.currentWorker.setAlgorithm(Settings.selectedAlgorithm);
                 Settings.currentWorker.execute();
             } else {
-                System.err.println("{STOP}");
-                Settings.isRunning = false;
-                sortArray.reset();
+                System.err.println("{PAUSE}");
+                Settings.isRunning.set(false);
             }
+        });
+
+        // Reset button
+        Button resetButton = new Button("Reset");
+        resetButton.addActionListener(e ->
+        {
+            System.err.println("resetButton pressed!");
+            if (!Settings.isRunning.get()) {
+                sortArray.reset();
+                Settings.arrayAccesses.set(0);
+                Settings.arrayComparisons.set(0);
+                Settings.currentWorker.cancel(true);
+                Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
+            }
+        });
+
+        // Step button
+        Button stepButton = new Button("Step");
+        stepButton.addActionListener(e ->
+        {
+            System.err.println("stepButton pressed!");
+            Settings.isStepping.set(true);
+            Settings.isRunning.set(true);
         });
 
         // Shuffle button
@@ -51,7 +73,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         shuffleButton.addActionListener(e ->
         {
             System.err.println("shuffleButton pressed!");
-            if (!Settings.isRunning) {
+            if (!Settings.isRunning.get()) {
                 sortArray.shuffle();
             }
         });
@@ -68,7 +90,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         runSpeedSlider.addChangeListener(e ->
         {
             System.err.println("Speed: " + runSpeedSlider.getValue() + "ms");
-            Settings.speed = runSpeedSlider.getValue();
+            Settings.speed.set(runSpeedSlider.getValue());
         });
 
         // Add bar to sorting array button
@@ -76,8 +98,8 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         addBar.addActionListener(e ->
         {
             System.err.println("addButton pressed!");
-            if (!Settings.isRunning) {
-                Settings.barCounter++;
+            if (!Settings.isRunning.get()) {
+                Settings.barCounter.getAndIncrement();
                 int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
                 SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
                 sortArray.sortArray.add(tmpBar);
@@ -90,9 +112,9 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         removeBar.addActionListener(e ->
         {
             System.err.println("removeButton pressed!");
-            if (!Settings.isRunning) {
-                if (Settings.barCounter > 2) {
-                    Settings.barCounter--;
+            if (!Settings.isRunning.get()) {
+                if (Settings.barCounter.get() > 2) {
+                    Settings.barCounter.getAndDecrement();
                 }
                 if (sortArray.sortArray.size() > 2) {
                     sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
@@ -127,6 +149,8 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         // Adding components to settings panel
         ////
         this.add(runButton);
+        this.add(resetButton);
+        this.add(stepButton);
         this.add(runSpeedSlider);
         this.add(algoSelector);
         this.add(shuffleButton);
@@ -138,7 +162,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        if(!Settings.isRunning) {
+        if(!Settings.isRunning.get()) {
             runButton.setLabel("Run");
         } else {
             runButton.setLabel("Stop");
@@ -153,8 +177,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
     @Override
     public void popupMenuWillBecomeInvisible(PopupMenuEvent e)
     {
-        // Needed to redraw components under the popup menu
-        revalidate();
+        revalidate(); // Needed to redraw components under the popup menu
     }
 
     @Override

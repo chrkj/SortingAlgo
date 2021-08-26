@@ -55,14 +55,20 @@ public class ArrayPanel extends JPanel {
     {
         repaint();
         try {
-            if (!Settings.isRunning) {
-                wait();
+            if(Settings.isStepping.get()) {
+                Thread.sleep(Settings.STEPPING_SPEED);
             } else {
                 Thread.sleep(ms);
             }
+
+            while(!Settings.isRunning.get()) {
+                Thread.sleep(10);
+            }
+
+            if (Settings.isStepping.get()) { Settings.isRunning.set(false); }
         } catch (InterruptedException ex) {
             System.err.println("Thread interrupted");
-            Thread.currentThread().interrupt();
+            Thread.currentThread().stop(); // TODO: Fix this.
         }
     }
 
@@ -70,11 +76,12 @@ public class ArrayPanel extends JPanel {
     {
         setColor(firstIndex, Color.GREEN);
         setColor(secondIndex, Color.GREEN);
-        Settings.arrayAccesses++;
+        delay(Settings.speed.get());
+        Settings.arrayAccesses.getAndIncrement();
         Collections.swap(sortArray, firstIndex, secondIndex);
         sortArray.get(firstIndex).setIndex(sortArray);
         sortArray.get(secondIndex).setIndex(sortArray);
-        delay(Settings.speed);
+        delay(Settings.speed.get());
         setColor(firstIndex, Color.BLACK);
         setColor(secondIndex, Color.BLACK);
     }
@@ -108,15 +115,18 @@ public class ArrayPanel extends JPanel {
             delay(25);
             setColor(i, Color.BLACK);
         }
-        Settings.isRunning = false;
+        Settings.isRunning.set(false);
+        Settings.isStepping.set(false);
+        Settings.currentWorker.cancel(true);
+        Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
     }
 
     public void compare(int firstIndex, int secondIndex)
     {
-        Settings.arrayComparisons++;
+        Settings.arrayComparisons.getAndIncrement();
         setColor(firstIndex, Color.RED);
         setColor(secondIndex, Color.RED);
-        delay(Settings.speed);
+        delay(Settings.speed.get());
         setColor(firstIndex, Color.BLACK);
         setColor(secondIndex, Color.BLACK);
     }
@@ -124,7 +134,6 @@ public class ArrayPanel extends JPanel {
     public void setColor(int index, Color color)
     {
         sortArray.get(index).setBarColor(color);
-        delay(1);
     }
 
     public int getValue(int index)
@@ -137,8 +146,8 @@ public class ArrayPanel extends JPanel {
         for (SubPanel element : sortArray) {
             element.setBarColor(Color.BLACK);
         }
-        Settings.arrayAccesses = 0;
-        Settings.arrayComparisons = 0;
+        Settings.arrayAccesses.set(0);
+        Settings.arrayComparisons.set(0);
     }
 
 }
