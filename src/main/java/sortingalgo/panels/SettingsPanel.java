@@ -30,20 +30,22 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         // Run button
         Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
         runButton = new Button("Run");
+        runButton.setPreferredSize(new Dimension(44, 22));
         runButton.addActionListener(e ->
-        {
-            System.err.print("RunButton pressed! ");
-            if (!Settings.isRunning.get()) {
-                System.err.println("{RUN}");
-                Settings.isRunning.set(true);
-                Settings.isStepping.set(false);
-                Settings.currentWorker.setAlgorithm(Settings.selectedAlgorithm);
-                Settings.currentWorker.execute();
-            } else {
-                System.err.println("{PAUSE}");
-                Settings.isRunning.set(false);
-            }
-        });
+                {
+                    System.err.print("RunButton pressed! ");
+                    if (!Settings.isRunning.get()) {
+                        System.err.println("{RUN}");
+                        Settings.isRunning.set(true);
+                        Settings.isStepping.set(false);
+                        Settings.currentWorker.setAlgorithm(Settings.selectedAlgorithm);
+                        Settings.currentWorker.execute();
+                    } else {
+                        System.err.println("{PAUSE}");
+                        Settings.isRunning.set(false);
+                    }
+                }
+        );
 
         // Reset button
         Button resetButton = new Button("Reset");
@@ -62,21 +64,23 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         // Step button
         Button stepButton = new Button("Step");
         stepButton.addActionListener(e ->
-        {
-            System.err.println("stepButton pressed!");
-            Settings.isStepping.set(true);
-            Settings.isRunning.set(true);
-        });
+                {
+                    System.err.println("stepButton pressed!");
+                    Settings.isStepping.set(true);
+                    Settings.isRunning.set(true);
+                }
+        );
 
         // Shuffle button
         Button shuffleButton = new Button("Shuffle");
         shuffleButton.addActionListener(e ->
-        {
-            System.err.println("shuffleButton pressed!");
-            if (!Settings.isRunning.get()) {
-                sortArray.shuffle();
-            }
-        });
+                {
+                    System.err.println("shuffleButton pressed!");
+                    if (!Settings.isRunning.get()) {
+                        sortArray.shuffle();
+                    }
+                }
+        );
 
         // Run speed slider
         JSlider runSpeedSlider = new JSlider(JSlider.HORIZONTAL, Settings.SPEED_MAX, Settings.SPEED_MIN, Settings.INITIAL_SPEED);
@@ -88,40 +92,43 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         runSpeedSlider.setPaintLabels(true);
         runSpeedSlider.setInverted(true);
         runSpeedSlider.addChangeListener(e ->
-        {
-            System.err.println("Speed: " + runSpeedSlider.getValue() + "ms");
-            Settings.speed.set(runSpeedSlider.getValue());
-        });
+                {
+                    System.err.println("Speed: " + runSpeedSlider.getValue() + "ms");
+                    Settings.speed.set(runSpeedSlider.getValue());
+                }
+        );
 
         // Add bar to sorting array button
         Button addBar = new Button("Add bar");
         addBar.addActionListener(e ->
-        {
-            System.err.println("addButton pressed!");
-            if (!Settings.isRunning.get()) {
-                Settings.barCounter.getAndIncrement();
-                int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-                SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
-                sortArray.sortArray.add(tmpBar);
-                repaint();
-            }
-        });
+                {
+                    System.err.println("addButton pressed!");
+                    if (!Settings.isRunning.get()) {
+                        Settings.barCounter.getAndIncrement();
+                        int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
+                        SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
+                        sortArray.sortArray.add(tmpBar);
+                        repaint();
+                    }
+                }
+        );
 
         // Remove bar from sorting array button
         Button removeBar = new Button("Remove bar");
         removeBar.addActionListener(e ->
-        {
-            System.err.println("removeButton pressed!");
-            if (!Settings.isRunning.get()) {
-                if (Settings.barCounter.get() > 2) {
-                    Settings.barCounter.getAndDecrement();
+                {
+                    System.err.println("removeButton pressed!");
+                    if (!Settings.isRunning.get()) {
+                        if (Settings.barCounter.get() > 2) {
+                            Settings.barCounter.getAndDecrement();
+                        }
+                        if (sortArray.sortArray.size() > 2) {
+                            sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
+                        }
+                        repaint();
+                    }
                 }
-                if (sortArray.sortArray.size() > 2) {
-                    sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
-                }
-                repaint();
-            }
-        });
+        );
 
         // Algorithm selector dropdown menu
         ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
@@ -139,10 +146,11 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         JComboBox<String> algoSelector = new JComboBox<>(boxStrings);
         algoSelector.setSelectedIndex(0);
         algoSelector.addActionListener(e ->
-        {
-            System.err.println("Selected: " + boxStrings[algoSelector.getSelectedIndex()]);
-            Settings.selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
-        });
+                {
+                    System.err.println("Selected: " + boxStrings[algoSelector.getSelectedIndex()]);
+                    Settings.selectedAlgorithm = algorithms.get(algoSelector.getSelectedIndex());
+                }
+        );
         algoSelector.addPopupMenuListener(this);
 
         ////
@@ -162,10 +170,14 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        if(!Settings.isRunning.get()) {
+        if (!Settings.isRunning.get()) {
             runButton.setLabel("Run");
+            runButton.setBackground(Color.GREEN);
         } else {
-            runButton.setLabel("Stop");
+            if (!Settings.isStepping.get()) {
+                runButton.setLabel("Pause");
+                runButton.setBackground(Color.RED);
+            }
         }
     }
 

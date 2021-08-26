@@ -55,17 +55,19 @@ public class ArrayPanel extends JPanel {
     {
         repaint();
         try {
-            if(Settings.isStepping.get()) {
+            if (Settings.isStepping.get()) {
                 Thread.sleep(Settings.STEPPING_SPEED);
             } else {
                 Thread.sleep(ms);
             }
 
-            while(!Settings.isRunning.get()) {
+            while (!Settings.isRunning.get()) {
                 Thread.sleep(10);
             }
 
-            if (Settings.isStepping.get()) { Settings.isRunning.set(false); }
+            if (Settings.isStepping.get()) {
+                Settings.isRunning.set(false);
+            }
         } catch (InterruptedException ex) {
             System.err.println("Thread interrupted");
             Thread.currentThread().stop(); // TODO: Fix this.
@@ -143,11 +145,9 @@ public class ArrayPanel extends JPanel {
 
     public void reset()
     {
-        for (SubPanel element : sortArray) {
-            element.setBarColor(Color.BLACK);
+        for (SubPanel panel : sortArray) {
+            panel.setBarColor(Color.BLACK);
         }
-        Settings.arrayAccesses.set(0);
-        Settings.arrayComparisons.set(0);
     }
 
 }

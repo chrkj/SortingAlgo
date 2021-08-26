@@ -7,7 +7,8 @@ import javax.swing.*;
 public class Worker extends SwingWorker<Void, Void> {
     private SortingAlgorithm algorithm;
 
-    public Worker(SortingAlgorithm algorithm) {
+    public Worker(SortingAlgorithm algorithm)
+    {
         super();
         this.algorithm = algorithm;
     }
