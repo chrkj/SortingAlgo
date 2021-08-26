@@ -22,7 +22,7 @@ The settings GUI
 - ✅ Make "Stop" not sort the rest of the array
 - ✅ Make some settings inactive while running
 - ⬜ Organize settings panel
-- ⬜ Make pause / step button and functionality
+- ✅ Make pause / step button and functionality
 
 The algorithms
 - ✅ Add Bubblesort
