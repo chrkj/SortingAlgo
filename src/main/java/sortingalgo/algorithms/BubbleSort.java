@@ -4,24 +4,24 @@ import sortingalgo.panels.ArrayPanel;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(ArrayPanel arr)
+    public BubbleSort(ArrayPanel arrayPanel)
     {
-        super(arr);
+        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        int n = arr.sortArray.size();
+        int n = arrayPanel.array.size();
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
-                arr.compare(j, j - 1);
-                if (arr.getValue(j - 1) > arr.getValue(j)) {
-                    arr.swap(j - 1, j);
+                arrayPanel.compare(j, j - 1);
+                if (arrayPanel.getValue(j - 1) > arrayPanel.getValue(j)) {
+                    arrayPanel.swap(j - 1, j);
                 }
             }
         }
-        arr.finishAnimation();
+        arrayPanel.finishAnimation();
     }
 
     @Override

@@ -4,11 +4,11 @@ import sortingalgo.panels.ArrayPanel;
 
 public abstract class SortingAlgorithm {
 
-    protected final ArrayPanel arr;
+    protected final ArrayPanel arrayPanel;
 
-    public SortingAlgorithm(ArrayPanel arr)
+    public SortingAlgorithm(ArrayPanel arrayPanel)
     {
-        this.arr = arr;
+        this.arrayPanel = arrayPanel;
     }
 
     public abstract void run();

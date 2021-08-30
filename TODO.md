@@ -30,6 +30,6 @@ The algorithms
 - ✅ Add Selectionsort 
 - ✅ Add Quicksort
 - ✅ Add Heapsort
-- ⬜ Add Mergesort
+- ⬜ Add Mergesort (Better visual)
 - ✅ Resolve runtime errors (concurrency)
 - ✅ Optimize rendering

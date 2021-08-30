@@ -12,10 +12,10 @@ public class MainApp {
     public MainApp()
     {
         window = new JFrame("SortingAlgo");
-        ArrayPanel dataGUI = new ArrayPanel(window);
-        SettingsPanel settings = new SettingsPanel(dataGUI);
-        window.add(settings);
-        window.add(dataGUI);
+        ArrayPanel arrayPanel = new ArrayPanel(window);
+        SettingsPanel settingsPanel = new SettingsPanel(arrayPanel);
+        window.add(settingsPanel);
+        window.add(arrayPanel);
     }
 
     public void start()
@@ -30,7 +30,6 @@ public class MainApp {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ignored) {
-            // Ignored
         } finally {
             new MainApp().start();
         }

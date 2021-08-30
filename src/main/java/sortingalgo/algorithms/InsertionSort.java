@@ -5,30 +5,30 @@ import sortingalgo.panels.ArrayPanel;
 import java.awt.*;
 
 public class InsertionSort extends SortingAlgorithm {
-    public InsertionSort(ArrayPanel arr)
+    public InsertionSort(ArrayPanel arrayPanel)
     {
-        super(arr);
+        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        int n = arr.sortArray.size();
+        int n = arrayPanel.array.size();
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0; j--) {
-                arr.setColor(i, Color.YELLOW);
-                arr.compare(j, j - 1);
-                arr.setColor(i, Color.YELLOW);
-                if (arr.getValue(j) < arr.getValue(j - 1)) {
-                    arr.swap(j, j - 1);
-                    arr.setColor(i, Color.YELLOW);
+                arrayPanel.setColor(i, Color.YELLOW);
+                arrayPanel.compare(j, j - 1);
+                arrayPanel.setColor(i, Color.YELLOW);
+                if (arrayPanel.getValue(j) < arrayPanel.getValue(j - 1)) {
+                    arrayPanel.swap(j, j - 1);
+                    arrayPanel.setColor(i, Color.YELLOW);
                 } else {
                     break;
                 }
             }
         }
-        arr.setColor(n - 1, Color.BLACK);
-        arr.finishAnimation();
+        arrayPanel.setColor(n - 1, Color.BLACK);
+        arrayPanel.finishAnimation();
     }
 
     @Override

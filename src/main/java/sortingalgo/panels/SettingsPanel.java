@@ -14,14 +14,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SettingsPanel extends JPanel implements PopupMenuListener {
 
-    private final Button runButton;
+    private final Button runButton = new Button("Run");
+    public final Button resetButton = new Button("Reset");;
 
-    public SettingsPanel(ArrayPanel sortArray)
+    public SettingsPanel(ArrayPanel arrayPanel)
     {
         setBackground(Settings.SETTINGS_PANEL_COLOR);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
-        Settings.selectedAlgorithm = new BubbleSort(sortArray); // Select initial algorithm
+        Settings.selectedAlgorithm = new BubbleSort(arrayPanel); // Select initial algorithm
 
         ////
         // Initializing settings components
@@ -29,7 +30,6 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
 
         // Run button
         Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
-        runButton = new Button("Run");
         runButton.setPreferredSize(new Dimension(44, 22));
         runButton.addActionListener(e ->
                 {
@@ -38,22 +38,23 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                         System.err.println("{RUN}");
                         Settings.isRunning.set(true);
                         Settings.isStepping.set(false);
+                        resetButton.setEnabled(false);
                         Settings.currentWorker.setAlgorithm(Settings.selectedAlgorithm);
                         Settings.currentWorker.execute();
                     } else {
                         System.err.println("{PAUSE}");
                         Settings.isRunning.set(false);
+                        resetButton.setEnabled(true);
                     }
                 }
         );
 
         // Reset button
-        Button resetButton = new Button("Reset");
         resetButton.addActionListener(e ->
         {
             System.err.println("resetButton pressed!");
             if (!Settings.isRunning.get()) {
-                sortArray.reset();
+                arrayPanel.reset();
                 Settings.arrayAccesses.set(0);
                 Settings.arrayComparisons.set(0);
                 Settings.currentWorker.cancel(true);
@@ -68,6 +69,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                     System.err.println("stepButton pressed!");
                     Settings.isStepping.set(true);
                     Settings.isRunning.set(true);
+                    resetButton.setEnabled(true);
                 }
         );
 
@@ -77,7 +79,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                 {
                     System.err.println("shuffleButton pressed!");
                     if (!Settings.isRunning.get()) {
-                        sortArray.shuffle();
+                        arrayPanel.shuffle();
                     }
                 }
         );
@@ -104,10 +106,10 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                 {
                     System.err.println("addButton pressed!");
                     if (!Settings.isRunning.get()) {
-                        Settings.barCounter.getAndIncrement();
+                        Settings.arraySize.getAndIncrement();
                         int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-                        SubPanel tmpBar = new SubPanel(randomHeight, sortArray.sortArray.size());
-                        sortArray.sortArray.add(tmpBar);
+                        SubPanel tmpBar = new SubPanel(randomHeight, arrayPanel.array.size());
+                        arrayPanel.array.add(tmpBar);
                         repaint();
                     }
                 }
@@ -119,25 +121,37 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
                 {
                     System.err.println("removeButton pressed!");
                     if (!Settings.isRunning.get()) {
-                        if (Settings.barCounter.get() > 2) {
-                            Settings.barCounter.getAndDecrement();
+                        if (Settings.arraySize.get() > 2) {
+                            Settings.arraySize.getAndDecrement();
                         }
-                        if (sortArray.sortArray.size() > 2) {
-                            sortArray.sortArray.remove(sortArray.sortArray.size() - 1);
+                        if (arrayPanel.array.size() > 2) {
+                            arrayPanel.array.remove(arrayPanel.array.size() - 1);
                         }
                         repaint();
                     }
                 }
         );
 
+        // Set values
+        Button changeValue = new Button("Change value");
+        changeValue.addActionListener(e ->
+                {
+                    String values = JOptionPane.showInputDialog(this, "Insert values eg. (10 22 43 54 ...)\nCurrent size is " + arrayPanel.array.size(), null);
+                    String[] parsedValues = values.split(" ");
+                    if (parsedValues.length == arrayPanel.array.size()) {
+                        arrayPanel.setValues(parsedValues);
+                    }
+                }
+        );
+
         // Algorithm selector dropdown menu
         ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
-        algorithms.add(new BubbleSort(sortArray));
-        algorithms.add(new SelectionSort(sortArray));
-        algorithms.add(new InsertionSort(sortArray));
-        algorithms.add(new MergeSort(sortArray));
-        algorithms.add(new HeapSort(sortArray));
-        algorithms.add(new QuickSort(sortArray));
+        algorithms.add(new BubbleSort(arrayPanel));
+        algorithms.add(new SelectionSort(arrayPanel));
+        algorithms.add(new InsertionSort(arrayPanel));
+        algorithms.add(new MergeSort(arrayPanel));
+        algorithms.add(new HeapSort(arrayPanel));
+        algorithms.add(new QuickSort(arrayPanel));
 
         String[] boxStrings = new String[algorithms.size()];
         for (int i = 0; i < algorithms.size(); i++) {
@@ -164,6 +178,7 @@ public class SettingsPanel extends JPanel implements PopupMenuListener {
         this.add(shuffleButton);
         this.add(addBar);
         this.add(removeBar);
+        this.add(changeValue);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Settings {
     public static final int BAR_SPACING = 3;
     public static final int MIN_BAR_HEIGHT = 30;
     public static final int MAX_BAR_HEIGHT = 500;
-    public static final int INITIAL_BAR_COUNT = 15;
+    public static final int INITIAL_ARRAY_SIZE = 15;
 
     // Window
     public static final int INITIAL_WINDOW_WIDTH = 1000;
@@ -32,15 +32,15 @@ public class Settings {
     public static final int SETTINGS_PANEL_TEXT_SIZE = 15;
     public static final Color SETTINGS_PANEL_COLOR = Color.GRAY;
 
-    // Variables (TODO: Make variables atomic)
+    // Variables
     public static Worker currentWorker;
     public static SortingAlgorithm selectedAlgorithm;
 
-    public static AtomicInteger speed = new AtomicInteger(500);
-    public static AtomicInteger arrayAccesses = new AtomicInteger(0);
-    public static AtomicInteger arrayComparisons = new AtomicInteger(0);
-    public static AtomicInteger barCounter = new AtomicInteger(INITIAL_BAR_COUNT);
-    public static AtomicBoolean isRunning = new AtomicBoolean(false);
-    public static AtomicBoolean isStepping = new AtomicBoolean(false);
+    public static final AtomicInteger speed = new AtomicInteger(500);
+    public static final AtomicInteger arrayAccesses = new AtomicInteger(0);
+    public static final AtomicInteger arrayComparisons = new AtomicInteger(0);
+    public static final AtomicInteger arraySize = new AtomicInteger(INITIAL_ARRAY_SIZE);
+    public static final AtomicBoolean isRunning = new AtomicBoolean(false);
+    public static final AtomicBoolean isStepping = new AtomicBoolean(false);
 
 }

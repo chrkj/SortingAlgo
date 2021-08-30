@@ -6,28 +6,28 @@ import java.awt.*;
 
 public class SelectionSort extends SortingAlgorithm {
 
-    public SelectionSort(ArrayPanel arr)
+    public SelectionSort(ArrayPanel arrayPanel)
     {
-        super(arr);
+        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        int n = arr.sortArray.size();
+        int n = arrayPanel.array.size();
         for (int i = 0; i < n; i++) {
-            arr.setColor(i, Color.YELLOW);
+            arrayPanel.setColor(i, Color.YELLOW);
             int min = i;
             for (int j = i + 1; j < n; j++) {
-                arr.compare(j, min);
-                if (arr.getValue(j) < arr.getValue(min)) {
-                    arr.setColor(i, Color.YELLOW);
+                arrayPanel.compare(j, min);
+                if (arrayPanel.getValue(j) < arrayPanel.getValue(min)) {
+                    arrayPanel.setColor(i, Color.YELLOW);
                     min = j;
                 }
             }
-            arr.swap(i, min);
+            arrayPanel.swap(i, min);
         }
-        arr.finishAnimation();
+        arrayPanel.finishAnimation();
     }
 
     @Override

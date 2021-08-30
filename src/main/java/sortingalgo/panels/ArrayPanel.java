@@ -10,12 +10,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ArrayPanel extends JPanel {
 
     public final JFrame frame;
-    public final ArrayList<SubPanel> sortArray;
+    public final ArrayList<SubPanel> array;
 
     public ArrayPanel(JFrame frame)
     {
         this.frame = frame;
-        this.sortArray = new ArrayList<>(Settings.INITIAL_BAR_COUNT);
+        this.array = new ArrayList<>(Settings.INITIAL_ARRAY_SIZE);
 
         RelativeLayout layout = new RelativeLayout(RelativeLayout.X_AXIS, Settings.BAR_SPACING);
         layout.setFill(true);
@@ -26,15 +26,15 @@ public class ArrayPanel extends JPanel {
         setBackground(Settings.ARRAY_PANEL_COLOR);
 
         // Populate dataBars with JBarComponents of random height
-        for (int i = 0; i < Settings.INITIAL_BAR_COUNT; i++) {
+        for (int i = 0; i < Settings.INITIAL_ARRAY_SIZE; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            sortArray.add(new SubPanel(randomNum, i));
+            array.add(new SubPanel(randomNum, i));
         }
     }
 
     public void shuffle()
     {
-        for (SubPanel bar : sortArray) {
+        for (SubPanel bar : array) {
             bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1));
         }
     }
@@ -43,7 +43,7 @@ public class ArrayPanel extends JPanel {
     public void reDraw()
     {
         removeAll();
-        for (SubPanel element : sortArray) {
+        for (SubPanel element : array) {
             add(element, 1f);
         }
         validate();
@@ -80,9 +80,9 @@ public class ArrayPanel extends JPanel {
         setColor(secondIndex, Color.GREEN);
         delay(Settings.speed.get());
         Settings.arrayAccesses.getAndIncrement();
-        Collections.swap(sortArray, firstIndex, secondIndex);
-        sortArray.get(firstIndex).setIndex(sortArray);
-        sortArray.get(secondIndex).setIndex(sortArray);
+        Collections.swap(array, firstIndex, secondIndex);
+        array.get(firstIndex).setIndex(array);
+        array.get(secondIndex).setIndex(array);
         delay(Settings.speed.get());
         setColor(firstIndex, Color.BLACK);
         setColor(secondIndex, Color.BLACK);
@@ -102,7 +102,7 @@ public class ArrayPanel extends JPanel {
             g2D.drawString("Time Complexity: " + Settings.selectedAlgorithm.getTimeComplexity(), 515, 40);
             g2D.drawString("Array accesses: " + Settings.arrayAccesses, 515, 60);
             g2D.drawString("Array comparisons: " + Settings.arrayComparisons, 515, 80);
-            g2D.drawString("Number of elements: " + Settings.barCounter, 515, 100);
+            g2D.drawString("Number of elements: " + Settings.arraySize, 515, 100);
             g2D.drawString("Speed: " + Settings.speed + " ms", 515, 120);
             reDraw();
         } finally {
@@ -112,7 +112,7 @@ public class ArrayPanel extends JPanel {
 
     public void finishAnimation()
     {
-        for (int i = 0; i < sortArray.size(); i++) {
+        for (int i = 0; i < array.size(); i++) {
             setColor(i, Color.GREEN);
             delay(25);
             setColor(i, Color.BLACK);
@@ -135,19 +135,25 @@ public class ArrayPanel extends JPanel {
 
     public void setColor(int index, Color color)
     {
-        sortArray.get(index).setBarColor(color);
+        array.get(index).setBarColor(color);
     }
 
     public int getValue(int index)
     {
-        return sortArray.get(index).getValue();
+        return array.get(index).getValue();
     }
 
     public void reset()
     {
-        for (SubPanel panel : sortArray) {
+        for (SubPanel panel : array) {
             panel.setBarColor(Color.BLACK);
         }
     }
 
+    public void setValues(String[] values)
+    {
+        for (int i = 0; i < values.length; i++) {
+            array.get(i).setHeight(Integer.parseInt(values[i]));
+        }
+    }
 }

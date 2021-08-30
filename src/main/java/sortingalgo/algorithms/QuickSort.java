@@ -3,16 +3,16 @@ package sortingalgo.algorithms;
 import sortingalgo.panels.ArrayPanel;
 
 public class QuickSort extends SortingAlgorithm {
-    public QuickSort(ArrayPanel arr)
+    public QuickSort(ArrayPanel arrayPanel)
     {
-        super(arr);
+        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        sort(0, arr.sortArray.size() - 1);
-        arr.finishAnimation();
+        sort(0, arrayPanel.array.size() - 1);
+        arrayPanel.finishAnimation();
     }
 
     private void sort(int lo, int hi)
@@ -27,22 +27,22 @@ public class QuickSort extends SortingAlgorithm {
     {
         int i = lo;
         int j = hi + 1;
-        int v = arr.getValue(lo);
+        int v = arrayPanel.getValue(lo);
         while (true) {
-            while (arr.getValue(++i) < v) {
-                arr.compare(i, lo);
+            while (arrayPanel.getValue(++i) < v) {
+                arrayPanel.compare(i, lo);
                 if (i == hi) break;
             }
 
-            while (arr.getValue(--j) > v) {
-                arr.compare(j, lo);
+            while (arrayPanel.getValue(--j) > v) {
+                arrayPanel.compare(j, lo);
                 if (j == lo) break;
             }
             if (i >= j) break;
 
-            arr.swap(i, j);
+            arrayPanel.swap(i, j);
         }
-        arr.swap(lo, j);
+        arrayPanel.swap(lo, j);
         return j;
     }
 
