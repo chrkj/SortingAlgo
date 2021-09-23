@@ -70,7 +70,7 @@ public class ArrayPanel extends JPanel {
             }
         } catch (InterruptedException ex) {
             System.err.println("Thread interrupted");
-            Thread.currentThread().stop(); // TODO: Fix this.
+            Thread.currentThread().stop(); // TODO: Fix (deprecated method).
         }
     }
 
@@ -150,10 +150,11 @@ public class ArrayPanel extends JPanel {
         }
     }
 
-    public void setValues(String[] values)
+    public void setValues(Integer[] values)
     {
         for (int i = 0; i < values.length; i++) {
-            array.get(i).setHeight(Integer.parseInt(values[i]));
+            array.get(i).setHeight(values[i]);
         }
     }
+
 }

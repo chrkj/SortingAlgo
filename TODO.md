@@ -8,8 +8,14 @@ The bars
 - ✅ Fix spacing problems when adding multiple new JBarComponents
 - ✅ Add min constrain to the amount of bars
 - ✅ Dynamic coloring of the index values
-- ⬜ Add functionality to specify bar values
-- ⬜ Add Shuffle worst / best case based on algorithm
+- ✅ Add functionality to specify bar values
+- ⬜ Add Shuffle worst case based on algorithm
+    - ✅ Bubblesort
+    - ✅ SelectionSort
+    - ✅ InsertionSort
+    - ⬜ HeapSort
+    - ⬜ MergeSort
+    - ⬜ QuickSort
 
 The settings GUI
 - ✅ Add the settings panel

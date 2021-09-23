@@ -59,4 +59,11 @@ public class HeapSort extends SortingAlgorithm {
     {
         return "O(n log(n))";
     }
+
+    @Override
+    public Integer[] getWorstCase()
+    {
+        return new Integer[0];
+    }
+
 }

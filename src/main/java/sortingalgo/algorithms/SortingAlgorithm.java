@@ -17,4 +17,6 @@ public abstract class SortingAlgorithm {
 
     public abstract String getTimeComplexity();
 
+    public abstract Integer[] getWorstCase();
+
 }

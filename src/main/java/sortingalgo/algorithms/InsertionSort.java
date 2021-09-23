@@ -1,8 +1,12 @@
 package sortingalgo.algorithms;
 
 import sortingalgo.panels.ArrayPanel;
+import sortingalgo.util.Settings;
 
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class InsertionSort extends SortingAlgorithm {
     public InsertionSort(ArrayPanel arrayPanel)
@@ -42,4 +46,17 @@ public class InsertionSort extends SortingAlgorithm {
     {
         return "O(n^2)";
     }
+
+    @Override
+    public Integer[] getWorstCase()
+    {
+        Integer[] worstCaseInt = new Integer[Settings.arraySize.get()];
+        for (int i = 0; i < Settings.arraySize.get(); i++)
+        {
+            worstCaseInt[i] = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
+        }
+        Arrays.sort(worstCaseInt, Collections.reverseOrder());
+        return worstCaseInt;
+    }
+
 }

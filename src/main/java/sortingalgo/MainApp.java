@@ -2,7 +2,7 @@ package sortingalgo;
 
 import sortingalgo.util.Settings;
 import sortingalgo.panels.ArrayPanel;
-import sortingalgo.panels.SettingsPanel;
+import sortingalgo.panels.Controller;
 
 import javax.swing.*;
 
@@ -13,8 +13,8 @@ public class MainApp {
     {
         window = new JFrame("SortingAlgo");
         ArrayPanel arrayPanel = new ArrayPanel(window);
-        SettingsPanel settingsPanel = new SettingsPanel(arrayPanel);
-        window.add(settingsPanel);
+        Controller controller = new Controller(arrayPanel);
+        window.add(controller);
         window.add(arrayPanel);
     }
 
