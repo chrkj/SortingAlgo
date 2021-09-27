@@ -29,6 +29,7 @@ The settings GUI
 - ✅ Make some settings inactive while running
 - ⬜ Organize settings panel
 - ✅ Make pause / step button and functionality
+- ✅ Make custom icon
 
 The algorithms
 - ✅ Add Bubblesort

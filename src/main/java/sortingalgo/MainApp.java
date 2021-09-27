@@ -5,6 +5,7 @@ import sortingalgo.panels.ArrayPanel;
 import sortingalgo.panels.Controller;
 
 import javax.swing.*;
+import java.util.Objects;
 
 public class MainApp {
     private final JFrame window;
@@ -22,6 +23,7 @@ public class MainApp {
     {
         window.setSize(Settings.INITIAL_WINDOW_WIDTH, Settings.INITIAL_WINDOW_HEIGHT);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("resources/sorting_icon.png"))).getImage());
         window.setVisible(true);
     }
 
