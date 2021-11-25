@@ -8,15 +8,12 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ArrayPanel extends JPanel {
+    private static ArrayPanel instance;
+    public static final ArrayList<SubPanel> subPanels = new ArrayList<>(Settings.INITIAL_ARRAY_SIZE);
 
-    public final JFrame frame;
-    public final ArrayList<SubPanel> array;
-
-    public ArrayPanel(JFrame frame)
+    public ArrayPanel()
     {
-        this.frame = frame;
-        this.array = new ArrayList<>(Settings.INITIAL_ARRAY_SIZE);
-
+        instance = this;
         RelativeLayout layout = new RelativeLayout(RelativeLayout.X_AXIS, Settings.BAR_SPACING);
         layout.setFill(true);
         layout.setRoundingPolicy(RelativeLayout.EQUAL);
@@ -28,13 +25,13 @@ public class ArrayPanel extends JPanel {
         // Populate dataBars with JBarComponents of random height
         for (int i = 0; i < Settings.INITIAL_ARRAY_SIZE; i++) {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-            array.add(new SubPanel(randomNum, i));
+            subPanels.add(new SubPanel(randomNum, i));
         }
     }
 
-    public void shuffle()
+    public static void shuffle()
     {
-        for (SubPanel bar : array) {
+        for (SubPanel bar : subPanels) {
             bar.setHeight(ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1));
         }
     }
@@ -43,49 +40,12 @@ public class ArrayPanel extends JPanel {
     public void reDraw()
     {
         removeAll();
-        for (SubPanel element : array) {
+        for (SubPanel element : subPanels) {
             add(element, 1f);
         }
         validate();
         repaint();
-        frame.repaint();
-    }
-
-    public void delay(long ms)
-    {
-        repaint();
-        try {
-            if (Settings.isStepping.get()) {
-                Thread.sleep(Settings.STEPPING_SPEED);
-            } else {
-                Thread.sleep(ms);
-            }
-
-            while (!Settings.isRunning.get()) {
-                Thread.sleep(10);
-            }
-
-            if (Settings.isStepping.get()) {
-                Settings.isRunning.set(false);
-            }
-        } catch (InterruptedException ex) {
-            System.err.println("Thread interrupted");
-            Thread.currentThread().stop(); // TODO: Fix (deprecated method).
-        }
-    }
-
-    public void swap(int firstIndex, int secondIndex)
-    {
-        setColor(firstIndex, Color.GREEN);
-        setColor(secondIndex, Color.GREEN);
-        delay(Settings.speed.get());
-        Settings.arrayAccesses.getAndIncrement();
-        Collections.swap(array, firstIndex, secondIndex);
-        array.get(firstIndex).setIndex(array);
-        array.get(secondIndex).setIndex(array);
-        delay(Settings.speed.get());
-        setColor(firstIndex, Color.BLACK);
-        setColor(secondIndex, Color.BLACK);
+        Window.update();
     }
 
     @Override
@@ -110,9 +70,46 @@ public class ArrayPanel extends JPanel {
         }
     }
 
-    public void finishAnimation()
+    public static void delay(long ms)
     {
-        for (int i = 0; i < array.size(); i++) {
+        instance.repaint();
+        try {
+            if (Settings.isStepping.get()) {
+                Thread.sleep(Settings.STEPPING_SPEED);
+            } else {
+                Thread.sleep(ms);
+            }
+
+            while (!Settings.isRunning.get()) {
+                Thread.sleep(10);
+            }
+
+            if (Settings.isStepping.get()) {
+                Settings.isRunning.set(false);
+            }
+        } catch (InterruptedException ex) {
+            System.err.println("Thread interrupted");
+            Thread.currentThread().stop(); // TODO: Fix (deprecated method).
+        }
+    }
+
+    public static void swap(int firstIndex, int secondIndex)
+    {
+        setColor(firstIndex, Color.GREEN);
+        setColor(secondIndex, Color.GREEN);
+        delay(Settings.speed.get());
+        Settings.arrayAccesses.getAndIncrement();
+        Collections.swap(subPanels, firstIndex, secondIndex);
+        subPanels.get(firstIndex).setIndex(subPanels);
+        subPanels.get(secondIndex).setIndex(subPanels);
+        delay(Settings.speed.get());
+        setColor(firstIndex, Color.BLACK);
+        setColor(secondIndex, Color.BLACK);
+    }
+
+    public static void finishAnimation()
+    {
+        for (int i = 0; i < subPanels.size(); i++) {
             setColor(i, Color.GREEN);
             delay(25);
             setColor(i, Color.BLACK);
@@ -123,7 +120,7 @@ public class ArrayPanel extends JPanel {
         Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
     }
 
-    public void compare(int firstIndex, int secondIndex)
+    public static void compare(int firstIndex, int secondIndex)
     {
         Settings.arrayComparisons.getAndIncrement();
         setColor(firstIndex, Color.RED);
@@ -133,27 +130,27 @@ public class ArrayPanel extends JPanel {
         setColor(secondIndex, Color.BLACK);
     }
 
-    public void setColor(int index, Color color)
+    public static void setColor(int index, Color color)
     {
-        array.get(index).setBarColor(color);
+        subPanels.get(index).setBarColor(color);
     }
 
-    public int getValue(int index)
+    public static int getValue(int index)
     {
-        return array.get(index).getValue();
+        return subPanels.get(index).getValue();
     }
 
-    public void reset()
+    public static void reset()
     {
-        for (SubPanel panel : array) {
+        for (SubPanel panel : subPanels) {
             panel.setBarColor(Color.BLACK);
         }
     }
 
-    public void setValues(Integer[] values)
+    public static void setValues(Integer[] values)
     {
         for (int i = 0; i < values.length; i++) {
-            array.get(i).setHeight(values[i]);
+            subPanels.get(i).setHeight(values[i]);
         }
     }
 

@@ -9,24 +9,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BubbleSort extends SortingAlgorithm {
 
-    public BubbleSort(ArrayPanel arrayPanel)
+    public BubbleSort()
     {
-        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        int n = arrayPanel.array.size();
+        int n = ArrayPanel.subPanels.size();
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
-                arrayPanel.compare(j, j - 1);
-                if (arrayPanel.getValue(j - 1) > arrayPanel.getValue(j)) {
-                    arrayPanel.swap(j - 1, j);
+                ArrayPanel.compare(j, j - 1);
+                if (ArrayPanel.getValue(j - 1) > ArrayPanel.getValue(j)) {
+                    ArrayPanel.swap(j - 1, j);
                 }
             }
         }
-        arrayPanel.finishAnimation();
+        ArrayPanel.finishAnimation();
     }
 
     @Override

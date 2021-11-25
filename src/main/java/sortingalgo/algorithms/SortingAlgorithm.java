@@ -1,14 +1,9 @@
 package sortingalgo.algorithms;
 
-import sortingalgo.panels.ArrayPanel;
-
 public abstract class SortingAlgorithm {
 
-    protected final ArrayPanel arrayPanel;
-
-    public SortingAlgorithm(ArrayPanel arrayPanel)
+    public SortingAlgorithm()
     {
-        this.arrayPanel = arrayPanel;
     }
 
     public abstract void run();

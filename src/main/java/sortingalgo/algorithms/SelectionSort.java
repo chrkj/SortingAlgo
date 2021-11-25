@@ -10,28 +10,27 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class SelectionSort extends SortingAlgorithm {
 
-    public SelectionSort(ArrayPanel arrayPanel)
+    public SelectionSort()
     {
-        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        int n = arrayPanel.array.size();
+        int n = ArrayPanel.subPanels.size();
         for (int i = 0; i < n; i++) {
-            arrayPanel.setColor(i, Color.YELLOW);
+            ArrayPanel.setColor(i, Color.YELLOW);
             int min = i;
             for (int j = i + 1; j < n; j++) {
-                arrayPanel.compare(j, min);
-                if (arrayPanel.getValue(j) < arrayPanel.getValue(min)) {
-                    arrayPanel.setColor(i, Color.YELLOW);
+                ArrayPanel.compare(j, min);
+                if (ArrayPanel.getValue(j) < ArrayPanel.getValue(min)) {
+                    ArrayPanel.setColor(i, Color.YELLOW);
                     min = j;
                 }
             }
-            arrayPanel.swap(i, min);
+            ArrayPanel.swap(i, min);
         }
-        arrayPanel.finishAnimation();
+        ArrayPanel.finishAnimation();
     }
 
     @Override

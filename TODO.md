@@ -9,13 +9,6 @@ The bars
 - ✅ Add min constrain to the amount of bars
 - ✅ Dynamic coloring of the index values
 - ✅ Add functionality to specify bar values
-- ⬜ Add Shuffle worst case based on algorithm
-    - ✅ Bubblesort
-    - ✅ SelectionSort
-    - ✅ InsertionSort
-    - ⬜ HeapSort
-    - ⬜ MergeSort
-    - ⬜ QuickSort
 
 The settings GUI
 - ✅ Add the settings panel
@@ -27,9 +20,10 @@ The settings GUI
 - ✅ Add bar counter field
 - ✅ Make "Stop" not sort the rest of the array
 - ✅ Make some settings inactive while running
-- ⬜ Organize settings panel
 - ✅ Make pause / step button and functionality
 - ✅ Make custom icon
+- ⬜ Organize settings panel
+- ⬜ Make height of the bars relative to the window
 
 The algorithms
 - ✅ Add Bubblesort
@@ -37,6 +31,13 @@ The algorithms
 - ✅ Add Selectionsort 
 - ✅ Add Quicksort
 - ✅ Add Heapsort
-- ⬜ Add Mergesort (Better visual)
 - ✅ Resolve runtime errors (concurrency)
 - ✅ Optimize rendering
+- ⬜ Add Mergesort (Better visual)
+- ⬜ Add Shuffle worst case based on algorithm
+  - ✅ Bubblesort
+  - ✅ SelectionSort
+  - ✅ InsertionSort
+  - ⬜ HeapSort
+  - ⬜ MergeSort
+  - ⬜ QuickSort

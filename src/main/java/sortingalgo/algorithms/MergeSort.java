@@ -8,17 +8,16 @@ import java.util.ArrayList;
 
 public class MergeSort extends SortingAlgorithm {
 
-    public MergeSort(ArrayPanel arrayPanel)
+    public MergeSort()
     {
-        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        ArrayList<SubPanel> aux = new ArrayList<>(arrayPanel.array);
-        sort(arrayPanel.array, aux, 0, arrayPanel.array.size() - 1);
-        arrayPanel.finishAnimation();
+        ArrayList<SubPanel> aux = new ArrayList<>(ArrayPanel.subPanels);
+        sort(ArrayPanel.subPanels, aux, 0, ArrayPanel.subPanels.size() - 1);
+        ArrayPanel.finishAnimation();
     }
 
     private void sort(ArrayList<SubPanel> array, ArrayList<SubPanel> aux, int lo, int hi)
@@ -34,7 +33,7 @@ public class MergeSort extends SortingAlgorithm {
 
     private void merge(ArrayList<SubPanel> array, ArrayList<SubPanel> aux, int lo, int mid, int hi)
     {
-        arrayPanel.delay(Settings.speed.get());
+        ArrayPanel.delay(Settings.speed.get());
         for (int k = lo; k <= hi; k++) {
             aux.set(k, array.get(k));
         }

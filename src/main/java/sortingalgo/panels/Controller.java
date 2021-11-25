@@ -17,12 +17,12 @@ public class Controller extends JPanel implements PopupMenuListener {
     private final Button runButton = new Button("Run");
     public final Button resetButton = new Button("Reset");
 
-    public Controller(ArrayPanel arrayPanel)
+    public Controller()
     {
         setBackground(Settings.SETTINGS_PANEL_COLOR);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         setBounds(5, 5, Settings.SETTINGS_PANEL_WIDTH, Settings.SETTINGS_PANEL_HEIGHT);
-        Settings.selectedAlgorithm = new BubbleSort(arrayPanel); // Select initial algorithm
+        Settings.selectedAlgorithm = new BubbleSort(); // Select initial algorithm
 
         ////
         // Initializing settings components
@@ -56,7 +56,7 @@ public class Controller extends JPanel implements PopupMenuListener {
         {
             System.err.println("resetButton pressed!");
             if (!Settings.isRunning.get()) {
-                arrayPanel.reset();
+                ArrayPanel.reset();
                 Settings.arrayAccesses.set(0);
                 Settings.arrayComparisons.set(0);
                 Settings.currentWorker.cancel(true);
@@ -80,7 +80,9 @@ public class Controller extends JPanel implements PopupMenuListener {
         shuffleButton.addActionListener(e ->
                 {
                     System.err.println("shuffleButton pressed!");
-                    if (!Settings.isRunning.get()) { arrayPanel.shuffle(); }
+                    if (!Settings.isRunning.get()) {
+                        ArrayPanel.shuffle();
+                    }
                 }
         );
 
@@ -108,8 +110,8 @@ public class Controller extends JPanel implements PopupMenuListener {
                     if (!Settings.isRunning.get()) {
                         Settings.arraySize.getAndIncrement();
                         int randomHeight = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
-                        SubPanel tmpBar = new SubPanel(randomHeight, arrayPanel.array.size());
-                        arrayPanel.array.add(tmpBar);
+                        SubPanel tmpBar = new SubPanel(randomHeight, ArrayPanel.subPanels.size());
+                        ArrayPanel.subPanels.add(tmpBar);
                         repaint();
                     }
                 }
@@ -124,8 +126,8 @@ public class Controller extends JPanel implements PopupMenuListener {
                         if (Settings.arraySize.get() > 2) {
                             Settings.arraySize.getAndDecrement();
                         }
-                        if (arrayPanel.array.size() > 2) {
-                            arrayPanel.array.remove(arrayPanel.array.size() - 1);
+                        if (ArrayPanel.subPanels.size() > 2) {
+                            ArrayPanel.subPanels.remove(ArrayPanel.subPanels.size() - 1);
                         }
                         repaint();
                     }
@@ -137,7 +139,7 @@ public class Controller extends JPanel implements PopupMenuListener {
         changeValue.addActionListener(e ->
                 {
                     String values = JOptionPane.showInputDialog(this, "Insert values eg. (10 22 43 54 ...)\n" +
-                            "Current size is " + arrayPanel.array.size(), null);
+                            "Current size is " + ArrayPanel.subPanels.size(), null);
                     if (values != null) {
                         String[] parsedValues = values.split(" ");
                         Integer[] parsedValuesInt = new Integer[parsedValues.length];
@@ -145,8 +147,8 @@ public class Controller extends JPanel implements PopupMenuListener {
                         {
                             parsedValuesInt[i] = Integer.parseInt(parsedValues[i]);
                         }
-                        if (parsedValues.length == arrayPanel.array.size()) {
-                            arrayPanel.setValues(parsedValuesInt);
+                        if (parsedValues.length == ArrayPanel.subPanels.size()) {
+                            ArrayPanel.setValues(parsedValuesInt);
                         }
                     }
                 }
@@ -154,12 +156,12 @@ public class Controller extends JPanel implements PopupMenuListener {
 
         // Algorithm selector dropdown menu
         ArrayList<SortingAlgorithm> algorithms = new ArrayList<>();
-        algorithms.add(new BubbleSort(arrayPanel));
-        algorithms.add(new SelectionSort(arrayPanel));
-        algorithms.add(new InsertionSort(arrayPanel));
-        algorithms.add(new MergeSort(arrayPanel));
-        algorithms.add(new HeapSort(arrayPanel));
-        algorithms.add(new QuickSort(arrayPanel));
+        algorithms.add(new BubbleSort());
+        algorithms.add(new SelectionSort());
+        algorithms.add(new InsertionSort());
+        algorithms.add(new MergeSort());
+        algorithms.add(new HeapSort());
+        algorithms.add(new QuickSort());
 
         String[] boxStrings = new String[algorithms.size()];
         for (int i = 0; i < algorithms.size(); i++) {
@@ -181,7 +183,7 @@ public class Controller extends JPanel implements PopupMenuListener {
                 {
                     if (!Settings.isRunning.get()) {
                         System.err.println("Worst case shuffle pressed!");
-                        arrayPanel.setValues(Settings.selectedAlgorithm.getWorstCase());
+                        ArrayPanel.setValues(Settings.selectedAlgorithm.getWorstCase());
                     }
                 }
         );

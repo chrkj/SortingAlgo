@@ -9,30 +9,29 @@ import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class InsertionSort extends SortingAlgorithm {
-    public InsertionSort(ArrayPanel arrayPanel)
+    public InsertionSort()
     {
-        super(arrayPanel);
     }
 
     @Override
     public void run()
     {
-        int n = arrayPanel.array.size();
+        int n = ArrayPanel.subPanels.size();
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0; j--) {
-                arrayPanel.setColor(i, Color.YELLOW);
-                arrayPanel.compare(j, j - 1);
-                arrayPanel.setColor(i, Color.YELLOW);
-                if (arrayPanel.getValue(j) < arrayPanel.getValue(j - 1)) {
-                    arrayPanel.swap(j, j - 1);
-                    arrayPanel.setColor(i, Color.YELLOW);
+                ArrayPanel.setColor(i, Color.YELLOW);
+                ArrayPanel.compare(j, j - 1);
+                ArrayPanel.setColor(i, Color.YELLOW);
+                if (ArrayPanel.getValue(j) < ArrayPanel.getValue(j - 1)) {
+                    ArrayPanel.swap(j, j - 1);
+                    ArrayPanel.setColor(i, Color.YELLOW);
                 } else {
                     break;
                 }
             }
         }
-        arrayPanel.setColor(n - 1, Color.BLACK);
-        arrayPanel.finishAnimation();
+        ArrayPanel.setColor(n - 1, Color.BLACK);
+        ArrayPanel.finishAnimation();
     }
 
     @Override
