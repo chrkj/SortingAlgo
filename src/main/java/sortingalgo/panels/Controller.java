@@ -14,10 +14,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Controller extends JPanel implements PopupMenuListener {
 
+    private static Controller singleInstance = null;
     private final Button runButton = new Button("Run");
-    public final Button resetButton = new Button("Reset");
 
-    public Controller()
+    private Controller()
     {
         setBackground(Settings.SETTINGS_PANEL_COLOR);
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
@@ -27,6 +27,20 @@ public class Controller extends JPanel implements PopupMenuListener {
         ////
         // Initializing settings components
         ////
+
+        // Reset button
+        Button resetButton = new Button("Reset");
+        resetButton.addActionListener(e ->
+        {
+            System.err.println("resetButton pressed!");
+            if (!Settings.isRunning.get()) {
+                ArrayPanel.reset();
+                Settings.arrayAccesses.set(0);
+                Settings.arrayComparisons.set(0);
+                Settings.currentWorker.cancel(true);
+                Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
+            }
+        });
 
         // Run button
         Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
@@ -50,19 +64,6 @@ public class Controller extends JPanel implements PopupMenuListener {
                     }
                 }
         );
-
-        // Reset button
-        resetButton.addActionListener(e ->
-        {
-            System.err.println("resetButton pressed!");
-            if (!Settings.isRunning.get()) {
-                ArrayPanel.reset();
-                Settings.arrayAccesses.set(0);
-                Settings.arrayComparisons.set(0);
-                Settings.currentWorker.cancel(true);
-                Settings.currentWorker = new Worker(Settings.selectedAlgorithm);
-            }
-        });
 
         // Step button
         Button stepButton = new Button("Step");
@@ -216,6 +217,14 @@ public class Controller extends JPanel implements PopupMenuListener {
                 runButton.setBackground(Color.RED);
             }
         }
+    }
+
+    public static Controller getInstance()
+    {
+        if (singleInstance == null) {
+            singleInstance = new Controller();
+        }
+        return singleInstance;
     }
 
     @Override

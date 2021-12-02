@@ -14,10 +14,8 @@ public class MainApp {
     public MainApp()
     {
         window = new Window("SortingAlgo");
-        Controller controller = new Controller();
-        ArrayPanel arrayPanel = new ArrayPanel();
-        window.add(controller);
-        window.add(arrayPanel);
+        window.add(Controller.getInstance());
+        window.add(ArrayPanel.getInstance());
     }
 
     public void start()

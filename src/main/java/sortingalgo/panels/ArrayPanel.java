@@ -8,12 +8,14 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ArrayPanel extends JPanel {
-    private static ArrayPanel instance;
+
+    private static ArrayPanel singleInstance = null;
+
     public static final ArrayList<SubPanel> subPanels = new ArrayList<>(Settings.INITIAL_ARRAY_SIZE);
 
-    public ArrayPanel()
+    private ArrayPanel()
     {
-        instance = this;
+        singleInstance = this;
         RelativeLayout layout = new RelativeLayout(RelativeLayout.X_AXIS, Settings.BAR_SPACING);
         layout.setFill(true);
         layout.setRoundingPolicy(RelativeLayout.EQUAL);
@@ -27,6 +29,14 @@ public class ArrayPanel extends JPanel {
             int randomNum = ThreadLocalRandom.current().nextInt(Settings.MIN_BAR_HEIGHT, Settings.MAX_BAR_HEIGHT + 1);
             subPanels.add(new SubPanel(randomNum, i));
         }
+    }
+
+    public static ArrayPanel getInstance()
+    {
+        if (singleInstance == null) {
+            singleInstance = new ArrayPanel();
+        }
+        return singleInstance;
     }
 
     public static void shuffle()
@@ -72,7 +82,7 @@ public class ArrayPanel extends JPanel {
 
     public static void delay(long ms)
     {
-        instance.repaint();
+        singleInstance.repaint();
         try {
             if (Settings.isStepping.get()) {
                 Thread.sleep(Settings.STEPPING_SPEED);
