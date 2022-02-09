@@ -18,7 +18,7 @@
   </h3>
 
   <p align="center">
-    A game engine made in Java
+    A sorting algorithm visualizer
     <br />
     <a href="https://github.com/chrkj/SortingAlgo"><strong>Explore the docs »</strong></a>
     <br />
