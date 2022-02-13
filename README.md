@@ -11,7 +11,7 @@
 <br />
 <div align="center">
 
-  <img src="src/main/java/sortingalgo/resources/sorting_icon.png" width="80" height="80">
+  <img src="src/main/java/sortingalgo/resources/example.png" width="520" height="400">
 
   <h3 align="center">
     SortingAlgo
